@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MEMEBase</string>
+    <string name="userId">Enter User Id</string>
+    <string name="userPassword">Enter User Password</string>
+    <string name="userName">Enter User Name</string>
+    <string name="submit">SUBMIT</string>
+    <string name="signUp">REGISTER</string>
+    <string name="logIn">LOGIN</string>
+</resources>

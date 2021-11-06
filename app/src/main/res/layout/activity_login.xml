@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/_15sdp"
+    tools:context=".activities.LoginActivity">
+    <LinearLayout
+        android:translationX="-1000dp"
+        android:id="@+id/ll_register"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/et_userId"
+            android:padding="@dimen/_4sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:hint="@string/userId"
+            android:textColorHint="@color/white"
+            android:background="@android:color/darker_gray"/>
+
+         <include layout="@layout/white_border"/>
+
+        <EditText
+            android:id="@+id/et_userPassword"
+            android:padding="@dimen/_4sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:hint="@string/userPassword"
+            android:textColorHint="@color/white"
+            android:background="@android:color/darker_gray"/>
+
+        <include layout="@layout/white_border"/>
+
+        <EditText
+            android:id="@+id/et_userName"
+            android:padding="@dimen/_4sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:hint="@string/userName"
+            android:textColorHint="@color/white"
+            android:background="@android:color/darker_gray"/>
+
+        <include layout="@layout/white_border"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:id="@+id/ll_signIn"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:visibility="invisible"
+            android:padding="@dimen/_4sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:hint="@string/userId"
+            android:textColorHint="@color/white"
+            android:background="@android:color/darker_gray"/>
+
+        <include layout="@layout/white_border"/>
+
+        <EditText
+            android:id="@+id/et_userIdSign"
+            android:padding="@dimen/_4sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:hint="@string/userId"
+            android:textColorHint="@color/white"
+            android:background="@android:color/darker_gray"/>
+
+        <include layout="@layout/white_border"/>
+
+        <EditText
+            android:id="@+id/et_userPasswordSign"
+            android:padding="@dimen/_4sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:hint="@string/userPassword"
+            android:textColorHint="@color/white"
+            android:background="@android:color/darker_gray"/>
+
+        <include layout="@layout/white_border"/>
+
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_below="@+id/ll_register"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@android:color/darker_gray"
+        android:text="@string/submit"
+        android:textColorHint="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_regSign"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_below="@+id/btn_submit"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="@dimen/_12ssp"
+        android:text="@string/signUp"
+        android:textColor="@android:color/holo_blue_dark"/>
+
+</RelativeLayout>
