@@ -1,126 +1,88 @@
 package com.example.memebase.activities
 
+import android.Manifest
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.memebase.R
-import com.example.memebase.models.userModels.Users
-import com.example.memebase.utils.Tools
 import com.example.memebase.utils.Tools.Companion.removeWhiteSpaces
 import com.example.memebase.viewModels.LoginActivityViewModel
 
+import androidx.core.app.ActivityCompat
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.get
+import com.example.memebase.databinding.ActivityLoginBinding
+import com.example.memebase.db.AppDatabase
+
+import com.example.memebase.utils.Tools.Companion.toEditable
+import com.example.memebase.viewModels.CompressedVideoActivityViewModel
+import com.example.memebase.viewModels.SelectVideoActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    private var etUserId: EditText? = null
-    private var etUserPassword: EditText? = null
-    private var etUserName: EditText? = null
-    private var tvRegSign: TextView? = null
-    private var btnSubmit: Button? = null
-    private var llSignIn: LinearLayout? = null
-    private var llRegister: LinearLayout? = null
 
-    var viewModel: LoginActivityViewModel? = null
+    private val viewModel: LoginActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-
-        initViewIds().also {
-
-
-            tvRegSign?.setOnClickListener {
-
-                if (tvRegSign?.text!!.equals(getString(R.string.signUp))){
-                    bringSignUp()
-                }else{
-                    bringSignIn()
-                }
-
-            }
-
-            btnSubmit?.setOnClickListener {
-
-            if (tvRegSign?.text!!.toString().equals(resources.getString(R.string.logIn))){
-
-                viewModel?.insertUserInfo(this, Users(0, removeWhiteSpaces(etUserId?.text.toString()),
-                    removeWhiteSpaces(etUserPassword?.text.toString()),
-                    etUserName?.text.toString()))
+        val binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
+            this,
+            R.layout.activity_login
+        )
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
 
+        viewModel.liveUsrFnd.observe(this) {
+            if (it) {
+                startActivity(Intent(this, MainActivity::class.java))
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }else{
-
-
-
-                viewModel?.getLoginDetails(applicationContext, removeWhiteSpaces(etUserId?.text.toString()),
-                    removeWhiteSpaces(etUserPassword?.text.toString()))?.observe(this, {
-
-                    if (it == null) {
-                        Toast.makeText(this, "Not found", Toast.LENGTH_SHORT).show()
-                    } else {
-
-                        bringInMainActivity()
-
-                    }
-
-                })
-
+                Toast.makeText(this, "User Not Found", Toast.LENGTH_SHORT).show()
             }
-
-
-
-            }
-
-
-
         }
-    }
+        viewModel.liveUsrReg.observe(this) {
+            if (it) {
+                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
 
-    private fun bringInMainActivity() {
-        slideViews().run {
-            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+        }
+        viewModel.regLog.observe(this) {
+            if (it.equals("REGISTER")) {
+                bringSignIn(binding)
+            } else if (it.equals("LOGIN")) {
+                bringSignUp(binding)
+            }
         }
 
     }
+    private fun bringSignIn(binding: ActivityLoginBinding) {
 
-    private fun slideViews() {
-        llSignIn?.animate()?.translationY(1000f)?.duration = 1000
-        btnSubmit?.animate()?.translationY(1000f)?.duration = 1000
-        tvRegSign?.animate()?.translationX(1000f)?.duration = 1000
+        binding.llRegister.animate()?.translationX(-1000f)?.duration = 1000
+        binding.llSignIn.animate()?.translationX(0f)?.duration = 1000
+        binding.etUserId.text = "".toEditable()
+        binding.etUserPassword.text = "".toEditable()
+        binding.etUserName.text = "".toEditable()
+        binding.tvRegSign.text = getString(R.string.signUp)
     }
 
-    private fun bringSignIn() {
-        llRegister?.animate()?.translationX(-1000f)?.duration = 1000
-        llSignIn?.animate()?.translationX(0f)?.duration = 1000
-        tvRegSign?.text = getString(R.string.signUp)
+    private fun bringSignUp(binding: ActivityLoginBinding) {
+        binding.llRegister.animate()?.translationX(0f)?.duration = 1000
+        binding.llSignIn.animate()?.translationX(1000f)?.duration = 1000
+        binding.etUserIdSign.text = "".toEditable()
+        binding.etUserPasswordSign.text = "".toEditable()
+        binding.tvRegSign.text = getString(R.string.logIn)
     }
 
-    private fun bringSignUp() {
-        llRegister?.animate()?.translationX(0f)
-        llSignIn?.animate()?.translationX(1000f)
-        tvRegSign?.text = getString(R.string.logIn)
-    }
 
-    fun initViewIds(){
-        etUserId = findViewById(R.id.et_userId)
-        etUserPassword = findViewById(R.id.et_userPassword)
-        etUserName = findViewById(R.id.et_userName)
-        tvRegSign = findViewById(R.id.tv_regSign)
-        btnSubmit = findViewById(R.id.btn_submit)
-        llSignIn = findViewById(R.id.ll_signIn)
-        llRegister = findViewById(R.id.ll_register)
-        bringSignIn()
 
-        viewModel = ViewModelProvider(this).get(LoginActivityViewModel::class.java)
-    }
 
-    override fun onResume() {
-        super.onResume()
-        llSignIn?.animate()?.translationY(0f)?.duration = 200
-        btnSubmit?.animate()?.translationY(0f)?.duration = 200
-        tvRegSign?.animate()?.translationX(0f)?.duration = 200
-    }
 
 }

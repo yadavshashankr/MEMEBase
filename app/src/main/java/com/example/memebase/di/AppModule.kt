@@ -1,6 +1,8 @@
 package com.example.memebase.di
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import com.example.memebase.db.AppDatabase
 import com.example.memebase.db.Dao
 import com.example.memebase.globals.ApplicationConstant
@@ -8,6 +10,7 @@ import com.example.memebase.network.RetroService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -45,5 +48,11 @@ class AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences("memeApp", Context.MODE_PRIVATE)
     }
 }

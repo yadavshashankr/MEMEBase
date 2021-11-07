@@ -8,11 +8,10 @@ import androidx.room.TypeConverters
 import com.example.memebase.models.memesModels.Data
 import com.example.memebase.models.memesModels.MemeModel
 import com.example.memebase.models.memesModels.Memes
-import com.example.memebase.models.userModels.Users
 
 
-@Database(entities = [MemeModel::class, Users::class],
-                version = 2,
+@Database(entities = [MemeModel::class],
+                version = 3,
                 exportSchema = false)
 @TypeConverters(Data.TypeConverterData::class,
                 Memes.TypeConverterMemes::class)

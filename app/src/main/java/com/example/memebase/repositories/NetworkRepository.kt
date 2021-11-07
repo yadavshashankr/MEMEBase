@@ -9,23 +9,22 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.Executors
 import javax.inject.Inject
 
 class NetworkRepository @Inject constructor(private val retroService: RetroService,
                                             private val dao: Dao) {
 
     var mutableMemeList: MutableLiveData<MemeModel> = MutableLiveData()
+    var meme: LiveData<MemeModel>? = null
 
-
-    fun getAllMemes(): LiveData<MemeModel> {
+    fun getAllMemes(): LiveData<MemeModel>? {
         return dao.getAllMemes()
     }
 
 
 
     fun insertRecord(memeModel: MemeModel) {
-
-
         dao.insertRecords(memeModel)
     }
 
