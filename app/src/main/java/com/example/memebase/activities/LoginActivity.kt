@@ -54,11 +54,22 @@ class LoginActivity : AppCompatActivity() {
 
             }
         }
+
         viewModel.regLog.observe(this) {
             if (it.equals("REGISTER")) {
                 bringSignIn(binding)
             } else if (it.equals("LOGIN")) {
                 bringSignUp(binding)
+            }
+        }
+
+        viewModel.liveSubmitted.observe(this){
+            if (it){
+                binding.btnSubmit.setBackgroundColor(resources.getColor(android.R.color.white))
+                binding.btnSubmit.setTextColor(resources.getColor(R.color.purple_700))
+            }else{
+                binding.btnSubmit.setBackgroundColor(resources.getColor(R.color.purple_700))
+                binding.btnSubmit.setTextColor(resources.getColor(android.R.color.white))
             }
         }
 

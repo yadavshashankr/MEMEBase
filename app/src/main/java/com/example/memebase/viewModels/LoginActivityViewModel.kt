@@ -33,6 +33,9 @@ class LoginActivityViewModel @Inject constructor(private val sharedPreferences: 
     var mutableUsrReg=MutableLiveData<Boolean>()
     var liveUsrReg:LiveData<Boolean> = mutableUsrReg
 
+    var mutableSubmitted=MutableLiveData<Boolean>()
+    var liveSubmitted:LiveData<Boolean> = mutableSubmitted
+
 
     var usrId: String = ""
     var usrPwd: String = ""
@@ -113,12 +116,14 @@ class LoginActivityViewModel @Inject constructor(private val sharedPreferences: 
     }
 
     fun checkRegister(){
+        mutableSubmitted.value = true
        if (regLogMut.value.equals("REGISTER") || regLogMut.value.equals("")){
 
            login()
 
        }else if (regLogMut.value.equals("LOGIN") ){
            if (!registerUser())   {
+               mutableSubmitted.value = false
                Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
            }
 
@@ -143,10 +148,11 @@ class LoginActivityViewModel @Inject constructor(private val sharedPreferences: 
 
     fun login(){
         if (!validationEmail() || !validationPassword()){
+            mutableSubmitted.value = false
             Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
             return
         }else{
-
+            mutableSubmitted.value = false
             mutableUsrFnd.value = sharedPreferences.getString(usrId, "")?.equals(usrId, ignoreCase = true) == true &&
                     sharedPreferences.getString(usrPwd, "")?.equals(usrPwd, ignoreCase = true)  == true
 
@@ -166,6 +172,7 @@ class LoginActivityViewModel @Inject constructor(private val sharedPreferences: 
             sharedPreferences.edit().putString(usrPswUp, usrPswUp).apply()
             sharedPreferences.edit().putString(usrNm, usrNm).apply()
             mutableUsrReg.value = true
+            mutableSubmitted.value = false
             return true
         }else{
             mutableUsrReg.value = false

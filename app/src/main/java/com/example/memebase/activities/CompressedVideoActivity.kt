@@ -29,4 +29,9 @@ class CompressedVideoActivity : AppCompatActivity() {
             else binding.videoView.pause()
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 }

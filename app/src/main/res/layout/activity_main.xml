@@ -57,5 +57,18 @@
      app:backgroundTint="@android:color/holo_blue_dark"
      app:maxImageSize="@dimen/_50sdp"
      android:src="@drawable/videocomp"/>
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        style="?android:progressBarStyle"
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:elevation="@dimen/_4sdp"
+        android:padding="@dimen/_16sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

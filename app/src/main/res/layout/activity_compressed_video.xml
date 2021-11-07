@@ -17,7 +17,7 @@
         android:id="@+id/video_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/_16sdp"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@id/play_pause"
         app:layout_constraintEnd_toEndOf="parent"

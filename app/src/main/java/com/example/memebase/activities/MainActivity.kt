@@ -39,8 +39,14 @@ import android.content.DialogInterface
 import android.os.AsyncTask
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import com.example.memebase.databinding.ActivityLoginBinding
+import com.example.memebase.databinding.ActivityMainBinding
 import com.example.memebase.models.memesModels.MemeModel
+import com.example.memebase.viewModels.LoginActivityViewModel
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.likethesalad.android.aaper.api.EnsurePermissions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -50,47 +56,50 @@ import java.util.concurrent.Executors
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private var viewModel: MainActivityViewModel? = null
+
     private var memeRecyclerAdapter: MemeRecyclerAdapter? = null
-
-
     private var ivNoInternet: ImageView? = null
     private var recyclerView: RecyclerView? = null
+    private var circularProgressIndicator: ProgressBar? = null
+    private val viewModel: MainActivityViewModel by viewModels()
+    var bindingA: ActivityMainBinding?= null
 
-
-
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        bindingA = DataBindingUtil.setContentView<ActivityMainBinding>(
+            this,
+            R.layout.activity_main
+        )
 
+        bindingA?.lifecycleOwner = this
+        bindingA?.viewModel = viewModel
         initRecyclerView()
 
-
-
-        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-        viewModel?.getMemeListObserver()?.observe(this, {
+        viewModel.getMemeListObserver()?.observe(this, {
             if (it != null) {
-                ivNoInternet?.visibility = View.GONE
-                recyclerView?.visibility = View.VISIBLE
+                bindingA?.ivNoInternet?.visibility = View.GONE
+                bindingA?.recyclerView?.visibility = View.VISIBLE
                 memeRecyclerAdapter?.memeListData = it.data.memes
                 memeRecyclerAdapter?.notifyDataSetChanged()
             } else {
-
-                ivNoInternet?.visibility = View.VISIBLE
-                recyclerView?.visibility = View.GONE
+                bindingA?.ivNoInternet?.visibility = View.VISIBLE
+                bindingA?.recyclerView?.visibility = View.GONE
             }
         })
-
-        loadAPIData()
-
-
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-
-                videoComp()
-
+        viewModel.getProgressBar().observe(this){
+            if (it){
+                bindingA?.progressCircular?.visibility = View.VISIBLE
+                bindingA?.recyclerView?.visibility = View.GONE
+            }else{
+                bindingA?.progressCircular?.visibility = View.GONE
+                bindingA?.recyclerView?.visibility = View.VISIBLE
             }
-
-
+        }
+        loadAPIData()
+        bindingA?.fab?.setOnClickListener{
+            videoComp()
+        }
     }
     @EnsurePermissions(permissions = [Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE])
     private fun videoComp() {
@@ -98,27 +107,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-
-    }
-
-
-
-
-
-
     private fun initRecyclerView() {
 
-        recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        ivNoInternet = findViewById<ImageView>(R.id.iv_noInternet)
-        recyclerView.apply {
+        bindingA?.recyclerView.apply {
 
          this?.layoutManager = LinearLayoutManager(this@MainActivity)
 
@@ -133,20 +124,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+
     fun loadAPIData(){
-
         Executors.newSingleThreadExecutor().execute { viewModel?.makeApiCall()}
-
-//        AsyncTask.execute(()->viewModel?.makeApiCall())
-//        GlobalScope.launch { viewModel?.makeApiCall() }
-
-
     }
 
-
-
-
-
-
+    override fun onBackPressed() {
+        Tools.showDialog(this)
+    }
 }

@@ -8,16 +8,30 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.memebase.R
 import com.example.memebase.databinding.ActivitySelectVideoBinding
+import com.example.memebase.utils.Tools
 import com.example.memebase.viewModels.SelectVideoActivityViewModel
+import android.content.res.AssetFileDescriptor
+import android.widget.Toast
+import com.example.memebase.globals.ApplicationConstant
+import dagger.hilt.android.qualifiers.ApplicationContext
+
 
 class SelectVideoActivity : AppCompatActivity() {
 
     private val activityViewModel: SelectVideoActivityViewModel by viewModels()
     private val videoFetcher = registerForActivityResult(ActivityResultContracts.GetContent()) {
         if (it == null) return@registerForActivityResult
-        startActivity(Intent(this, VideoSelectedActivity::class.java).apply {
+        val fileDescriptor = applicationContext.contentResolver.openAssetFileDescriptor(it, "r")
+        val fileSize = fileDescriptor!!.length /1000
+
+        if (fileSize in 10001..49999){
+            startActivity(Intent(this, VideoSelectedActivity::class.java).apply {
             data = it
         })
+        }else{
+            Toast.makeText(this, resources.getString(R.string.sizespec), Toast.LENGTH_LONG).show()
+        }
+
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,5 +51,10 @@ class SelectVideoActivity : AppCompatActivity() {
     }
     private fun getVideo() {
         videoFetcher.launch("video/*")
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }

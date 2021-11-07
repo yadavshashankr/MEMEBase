@@ -14,6 +14,7 @@
 
 
 <RelativeLayout
+    android:background="@drawable/backgnd"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_15sdp"
@@ -42,6 +43,7 @@
         <EditText
             android:id="@+id/et_userPassword"
             android:padding="@dimen/_4sdp"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_35sdp"
             android:afterTextChanged="@{(edtitable)->viewModel.afterUserPasswordUpChange(edtitable)}"
@@ -65,6 +67,18 @@
 
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_22ssp"
+        android:layout_above="@+id/ll_signIn"
+        android:layout_marginBottom="@dimen/_30sdp"
+
+        android:textColor="@color/black"
+        android:textStyle="bold|italic"
+        android:textAlignment="center"
+        android:text="@string/app_name"/>
 
     <LinearLayout
 
@@ -101,6 +115,7 @@
             android:afterTextChanged="@{(edtitable)->viewModel.afterPasswordChange(edtitable)}"
             android:id="@+id/et_userPasswordSign"
             android:padding="@dimen/_4sdp"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_35sdp"
             android:hint="@string/userPassword"
@@ -118,6 +133,7 @@
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_45sdp"
+        android:enabled="true"
         android:layout_below="@+id/ll_register"
         android:layout_marginTop="@dimen/_20sdp"
         android:background="@android:color/darker_gray"

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MEMEBase</string>
-    <string name="userId">Enter User Id</string>
+    <string name="userId">Enter Email Id</string>
     <string name="userPassword">Enter User Password</string>
     <string name="userName">Enter User Name</string>
     <string name="submit">SUBMIT</string>
@@ -9,4 +9,7 @@
     <string name="select_video">SELECT VIDEO</string>
     <string name="play">PLAY</string>
     <string name="pause">PAUSE</string>
+    <string name="instruct">Select Any Video of Size above 10 MB \n and below 50 MB</string>
+    <string name="logout">Are you sure you want \n to Logout?</string>
+    <string name="sizespec">Please select video of specified size</string>
 </resources>

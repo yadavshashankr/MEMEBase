@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.memebase.R
 import com.example.memebase.models.memesModels.Memes
+import android.view.animation.RotateAnimation
 
 
 
@@ -37,7 +38,9 @@ class MemeRecyclerAdapter: RecyclerView.Adapter<MemeRecyclerAdapter.MyViewHolder
         private val tvHeight = view.findViewById<TextView>(R.id.tvHeight)
         private val tvBoxCount = view.findViewById<TextView>(R.id.tvBoxCount)
         private val thumbImageView = view.findViewById<ImageView>(R.id.thumbImageView)
-
+        private val ivArrow = view.findViewById<ImageView>(R.id.iv_arrow)
+        private val ivImageSet = view.findViewById<ImageView>(R.id.iv_setImg)
+        private var mCurrRotation = 0
         fun bind(model : Memes){
             tvName.text = model.name
             tvWidth.text = model.width.toString()
@@ -46,17 +49,47 @@ class MemeRecyclerAdapter: RecyclerView.Adapter<MemeRecyclerAdapter.MyViewHolder
 
             val url  =  model.url
 
-//            tvName.text = model.data.memes?.get(absoluteAdapterPosition)?.name
-//            tvWidth.text = model.data.memes?.get(absoluteAdapterPosition)?.width.toString()
-//            tvHeight.text =  model.data.memes?.get(absoluteAdapterPosition)?.height.toString()
-//            tvBoxCount.text =  model.data.memes?.get(absoluteAdapterPosition)?.box_count.toString()
-//
-//            val url  =  model.data.memes?.get(absoluteAdapterPosition)?.url
-            Glide.with(thumbImageView)
-                .load(url)
-                .circleCrop()
-                .into(thumbImageView)
+            loadInGlideCir(thumbImageView, url)
+            loadInGlide(ivImageSet, url)
+
+
+            ivArrow.setOnClickListener {
+
+                if (ivImageSet.visibility == View.VISIBLE){
+                    ivImageSet.visibility = View.GONE
+                    rotate(ivArrow)
+
+                }else{
+                    ivImageSet.visibility = View.VISIBLE
+                    rotate(ivArrow)
+                }
+
+
+            }
 
         }
+        fun rotate(imageView: ImageView){
+            val fromRotation = mCurrRotation.toFloat()
+            val toRotation = 180.let { mCurrRotation += it; mCurrRotation }.toFloat()
+            val rotateAnim = RotateAnimation(
+                fromRotation, toRotation, imageView.width / 2f, imageView.height / 2f
+            )
+            rotateAnim.duration = 300
+            rotateAnim.fillAfter = true
+            imageView.startAnimation(rotateAnim)
+        }
+
+        fun loadInGlideCir(imageView: ImageView, url: String?){
+            Glide.with(imageView)
+                .load(url)
+                .circleCrop()
+                .into(imageView)
+        }
+        fun loadInGlide(imageView: ImageView, url: String?){
+            Glide.with(imageView)
+                .load(url)
+                .into(imageView)
+        }
     }
+
 }

@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
+
+    <RelativeLayout
+        android:id="@+id/rl_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
 
 
 
@@ -56,4 +72,31 @@
             />
 
     </LinearLayout>
-</LinearLayout>
+
+    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
+
+
+
+
+    </RelativeLayout>
+    <View
+        android:layout_above="@+id/iv_setImg"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@android:color/darker_gray"/>
+
+    <ImageView
+        android:layout_below="@+id/rl_main"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp"
+        android:id="@+id/iv_setImg"/>
+</RelativeLayout>

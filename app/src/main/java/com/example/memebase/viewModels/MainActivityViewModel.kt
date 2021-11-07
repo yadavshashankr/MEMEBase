@@ -21,15 +21,14 @@ private val applicationContext by lazy { application.applicationContext }
     return repository.getAllMemes()
 }
 
-
+    fun getProgressBar(): LiveData<Boolean>{
+        return repository.progressDialog
+    }
 
     fun makeApiCall(){
         repository.makeApiCall()
     }
 
-    fun startCompressingModule(){
-        applicationContext.startActivity(Intent(applicationContext, SelectVideoActivity::class.java))
-    }
 
 }
 
