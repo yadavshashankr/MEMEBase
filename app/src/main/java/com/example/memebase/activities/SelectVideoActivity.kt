@@ -17,7 +17,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 
 
 class SelectVideoActivity : AppCompatActivity() {
-
     private val activityViewModel: SelectVideoActivityViewModel by viewModels()
     private val videoFetcher = registerForActivityResult(ActivityResultContracts.GetContent()) {
         if (it == null) return@registerForActivityResult

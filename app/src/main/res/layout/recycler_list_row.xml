@@ -1,102 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
 
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.memebase.viewModels.MainActivityViewModel" />
+    </data>
     <RelativeLayout
-        android:id="@+id/rl_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-
-
-    <LinearLayout
-        android:id="@+id/ll_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <RelativeLayout
+            android:id="@+id/rl_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/ll_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
 
 
 
-    <ImageView android:id="@+id/thumbImageView"
-        android:layout_width="@dimen/_75sdp"
-        android:layout_height="@dimen/_75sdp"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/_6sdp"
-        />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+                <ImageView android:id="@+id/thumbImageView"
+                    android:layout_width="@dimen/_75sdp"
+                    android:layout_height="@dimen/_75sdp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_6sdp"
+                    />
 
-        >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
 
-        <TextView android:id="@+id/tvName"
+                    >
+
+                    <TextView android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_15ssp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/holo_blue_dark"
+                        android:layout_margin="@dimen/_6sdp"
+                        />
+
+                    <TextView android:id="@+id/tvWidth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        />
+
+                    <TextView android:id="@+id/tvHeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_14ssp"
+                        android:textColor="#d5d5d5"
+                        android:maxLines="3"
+                        android:layout_margin="@dimen/_6sdp"
+                        />
+
+                    <TextView android:id="@+id/tvBoxCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_14ssp"
+                        android:textColor="#d5d5d5"
+                        android:maxLines="3"
+                        android:layout_margin="@dimen/_6sdp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_arrow"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
+
+
+
+
+        </RelativeLayout>
+        <View
+            android:layout_above="@+id/iv_setImg"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_15ssp"
-            android:textStyle="bold"
-            android:textColor="@android:color/holo_blue_dark"
-            android:layout_margin="@dimen/_6sdp"
-            />
-
-        <TextView android:id="@+id/tvWidth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_14ssp"
-            android:textStyle="bold"
-            android:layout_marginStart="@dimen/_6sdp"
-            />
-
-        <TextView android:id="@+id/tvHeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_14ssp"
-            android:textColor="#d5d5d5"
-            android:maxLines="3"
-            android:layout_margin="@dimen/_6sdp"
-            />
-
-        <TextView android:id="@+id/tvBoxCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_14ssp"
-            android:textColor="#d5d5d5"
-            android:maxLines="3"
-            android:layout_margin="@dimen/_6sdp"
-            />
-
-    </LinearLayout>
-
-    </LinearLayout>
+            android:layout_height="@dimen/_1sdp"
+            android:background="@android:color/darker_gray"/>
 
         <ImageView
-            android:id="@+id/iv_arrow"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
-
-
-
-
+            android:layout_below="@+id/rl_main"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_300sdp"
+            android:id="@+id/iv_setImg"/>
     </RelativeLayout>
-    <View
-        android:layout_above="@+id/iv_setImg"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_1sdp"
-        android:background="@android:color/darker_gray"/>
 
-    <ImageView
-        android:layout_below="@+id/rl_main"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_300sdp"
-        android:id="@+id/iv_setImg"/>
-</RelativeLayout>
+</layout>

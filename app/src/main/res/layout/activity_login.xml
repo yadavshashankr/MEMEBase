@@ -19,142 +19,155 @@
     android:layout_height="match_parent"
     android:padding="@dimen/_15sdp"
     >
-    <LinearLayout
-        android:translationX="-1000dp"
-        android:id="@+id/ll_register"
-        android:layout_centerInParent="true"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
-        <EditText
-            android:id="@+id/et_userId"
-            android:padding="@dimen/_4sdp"
-            android:afterTextChanged="@{(edtitable)->viewModel.afterUserIdUpChange(edtitable)}"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_35sdp"
-            android:hint="@string/userId"
-            android:textColorHint="@color/white"
-            android:background="@android:color/darker_gray"/>
+            android:layout_height="match_parent">
 
-         <include layout="@layout/white_border"/>
 
-        <EditText
-            android:id="@+id/et_userPassword"
-            android:padding="@dimen/_4sdp"
-            android:inputType="textPassword"
+
+        <LinearLayout
+            android:translationX="-1000dp"
+            android:id="@+id/ll_register"
+            android:layout_centerInParent="true"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_35sdp"
-            android:afterTextChanged="@{(edtitable)->viewModel.afterUserPasswordUpChange(edtitable)}"
-            android:hint="@string/userPassword"
-            android:textColorHint="@color/white"
-            android:background="@android:color/darker_gray"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <include layout="@layout/white_border"/>
 
-        <EditText
-            android:id="@+id/et_userName"
-            android:padding="@dimen/_4sdp"
+            <EditText
+                android:id="@+id/et_userId"
+                android:padding="@dimen/_4sdp"
+                android:afterTextChanged="@{(edtitable)->viewModel.afterUserIdUpChange(edtitable)}"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:hint="@string/userId"
+                android:textColorHint="@color/white"
+                android:background="@android:color/darker_gray"/>
+
+            <include layout="@layout/white_border"/>
+
+            <EditText
+                android:id="@+id/et_userPassword"
+                android:padding="@dimen/_4sdp"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:afterTextChanged="@{(edtitable)->viewModel.afterUserPasswordUpChange(edtitable)}"
+                android:hint="@string/userPassword"
+                android:textColorHint="@color/white"
+                android:background="@android:color/darker_gray"/>
+
+            <include layout="@layout/white_border"/>
+
+            <EditText
+                android:id="@+id/et_userName"
+                android:padding="@dimen/_4sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:hint="@string/userName"
+                android:afterTextChanged="@{(edtitable)->viewModel.afterUserNameChange(edtitable)}"
+                android:textColorHint="@color/white"
+                android:background="@android:color/darker_gray"/>
+
+            <include layout="@layout/white_border"/>
+
+
+        </LinearLayout>
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_35sdp"
-            android:hint="@string/userName"
-            android:afterTextChanged="@{(edtitable)->viewModel.afterUserNameChange(edtitable)}"
-            android:textColorHint="@color/white"
-            android:background="@android:color/darker_gray"/>
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_22ssp"
+            android:layout_above="@+id/ll_signIn"
+            android:layout_marginBottom="@dimen/_30sdp"
 
-        <include layout="@layout/white_border"/>
+            android:textColor="@color/black"
+            android:textStyle="bold|italic"
+            android:textAlignment="center"
+            android:text="@string/app_name"/>
 
+        <LinearLayout
 
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/_22ssp"
-        android:layout_above="@+id/ll_signIn"
-        android:layout_marginBottom="@dimen/_30sdp"
-
-        android:textColor="@color/black"
-        android:textStyle="bold|italic"
-        android:textAlignment="center"
-        android:text="@string/app_name"/>
-
-    <LinearLayout
-
-        android:id="@+id/ll_signIn"
-        android:layout_centerInParent="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <EditText
-            android:visibility="invisible"
-            android:padding="@dimen/_4sdp"
+            android:id="@+id/ll_signIn"
+            android:layout_centerInParent="true"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_35sdp"
-            android:hint="@string/userId"
-            android:textColorHint="@color/white"
-            android:background="@android:color/darker_gray"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <include layout="@layout/white_border"/>
+            <EditText
+                android:visibility="invisible"
+                android:padding="@dimen/_4sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:hint="@string/userId"
+                android:textColorHint="@color/white"
+                android:background="@android:color/darker_gray"/>
 
-        <EditText
-            android:id="@+id/et_userIdSign"
-            android:padding="@dimen/_4sdp"
+            <include layout="@layout/white_border"/>
+
+            <EditText
+                android:id="@+id/et_userIdSign"
+                android:padding="@dimen/_4sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:afterTextChanged="@{(edtitable)->viewModel.afterUserIdChange(edtitable)}"
+                android:hint="@string/userId"
+                android:textColorHint="@color/white"
+                android:background="@android:color/darker_gray"/>
+
+            <include layout="@layout/white_border"/>
+
+            <EditText
+                android:afterTextChanged="@{(edtitable)->viewModel.afterPasswordChange(edtitable)}"
+                android:id="@+id/et_userPasswordSign"
+                android:padding="@dimen/_4sdp"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:hint="@string/userPassword"
+                android:textColorHint="@color/white"
+                android:background="@android:color/darker_gray"/>
+
+            <include layout="@layout/white_border"/>
+
+
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_submit"
             android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:enabled="true"
+            android:layout_below="@+id/ll_register"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@android:color/darker_gray"
+            android:onClick="@{()->viewModel.checkRegister()}"
+            android:text="@string/submit"
+            android:textColorHint="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_regSign"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/_35sdp"
-            android:afterTextChanged="@{(edtitable)->viewModel.afterUserIdChange(edtitable)}"
-            android:hint="@string/userId"
-            android:textColorHint="@color/white"
-            android:background="@android:color/darker_gray"/>
+            android:layout_below="@+id/btn_submit"
+            android:layout_centerHorizontal="true"
+            android:onClick="@{()->viewModel.onRegLogClick()}"
+            android:layout_marginTop="@dimen/_20sdp"
 
-        <include layout="@layout/white_border"/>
+            android:gravity="center"
+            android:text="@string/signUp"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/_12ssp" />
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <EditText
-            android:afterTextChanged="@{(edtitable)->viewModel.afterPasswordChange(edtitable)}"
-            android:id="@+id/et_userPasswordSign"
-            android:padding="@dimen/_4sdp"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_35sdp"
-            android:hint="@string/userPassword"
-            android:textColorHint="@color/white"
-            android:background="@android:color/darker_gray"/>
-
-        <include layout="@layout/white_border"/>
-
-
-
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_45sdp"
-        android:enabled="true"
-        android:layout_below="@+id/ll_register"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:background="@android:color/darker_gray"
-        android:onClick="@{()->viewModel.checkRegister()}"
-        android:text="@string/submit"
-        android:textColorHint="@color/white" />
-
-    <TextView
-        android:id="@+id/tv_regSign"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_35sdp"
-        android:layout_below="@+id/btn_submit"
-        android:layout_centerHorizontal="true"
-        android:onClick="@{()->viewModel.onRegLogClick()}"
-        android:layout_marginTop="@dimen/_20sdp"
-
-        android:gravity="center"
-        android:text="@string/signUp"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="@dimen/_12ssp" />
 
 </RelativeLayout>
 </layout>

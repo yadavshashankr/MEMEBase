@@ -22,46 +22,33 @@ class NetworkRepository @Inject constructor(private val retroService: RetroServi
     fun getAllMemes(): LiveData<MemeModel>? {
         return dao.getAllMemes()
     }
-
-
-
     fun insertRecord(memeModel: MemeModel) {
         dao.insertRecords(memeModel)
     }
-
     fun makeApiCall() {
-
         retroService.getMemeListApi()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(getMemeListObserverRx())
-
-
     }
 
     private fun getMemeListObserverRx(): Observer<MemeModel> {
-
         return object : Observer<MemeModel> {
             override fun onComplete() {
                 //hide progress indicator .
                 mutableProgressDialog.postValue(false)
             }
-
             override fun onError(e: Throwable) {
                 mutableMemeList.postValue(null)
-
                 mutableProgressDialog.postValue(false)
             }
 
             override fun onNext(t: MemeModel) {
                 mutableMemeList.postValue(t)
                 insertRecord(t)
-
             }
 
             override fun onSubscribe(d: Disposable) {
-
-
                 mutableProgressDialog.postValue(true)
             }
         }

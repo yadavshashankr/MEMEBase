@@ -13,7 +13,6 @@ import com.example.memebase.models.memesModels.MemeModel
 
 @Dao
 interface Dao {
-
     @Query("SELECT * FROM ${ApplicationConstant.TABLE_NAME_MEME_MODEL}")
     fun getAllMemes(): LiveData<MemeModel>
 
@@ -22,7 +21,4 @@ interface Dao {
 
     @Query("DELETE FROM ${ApplicationConstant.TABLE_NAME_MEME_MODEL}" )
     fun deleteAllRecords()
-
-
-
 }

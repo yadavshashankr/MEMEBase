@@ -14,6 +14,10 @@ import android.widget.TextView
 import com.example.memebase.R
 import android.app.Activity
 import android.content.Intent
+import android.view.View
+import android.view.animation.RotateAnimation
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.example.memebase.activities.LoginActivity
 
 
@@ -22,15 +26,16 @@ class Tools {
 
 
     companion object{
-
         fun removeWhiteSpaces(pString: String?): String{
-
             return pString!!.replace("\\s".toRegex(),"")
-
         }
-
+        fun isSpaceInString(string: String?): Boolean{
+            if (string?.contains(" ") == true){
+                return false
+            }
+            return true
+        }
         fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
-
 
         fun showDialog(context: Context) {
             val dialog = Dialog(context)
@@ -48,9 +53,53 @@ class Tools {
             }
             noBtn.setOnClickListener { dialog.dismiss()}
             dialog.show()
+        }
 
+        fun setViewVisible(view: View?){
+            view?.visibility = View.VISIBLE
+        }
+        fun setViewInVisible(view: View?){
+            view?.visibility = View.INVISIBLE
+        }
+        fun setViewGone(view: View?){
+            view?.visibility = View.GONE
+        }
+        fun rotateDown(imageView: ImageView){
+            var mCurrRotation = 0f
+            val fromRotation: Float = mCurrRotation
+            var toRotation = 180f
 
+            val rotateAnim = RotateAnimation(
+                fromRotation, toRotation, imageView.width / 2f, imageView.height / 2f
+            )
+            rotateAnim.duration = 300
+            rotateAnim.fillAfter = true
+            imageView.startAnimation(rotateAnim)
+        }
 
+        fun rotateUp(imageView: ImageView){
+            var mCurrRotation = 180f
+            val fromRotation: Float = mCurrRotation
+            var toRotation = 360f
+
+            val rotateAnim = RotateAnimation(
+                fromRotation, toRotation, imageView.width / 2f, imageView.height / 2f
+            )
+            rotateAnim.duration = 300
+            rotateAnim.fillAfter = true
+            imageView.startAnimation(rotateAnim)
+        }
+
+        fun loadInGlideCir(imageView: ImageView, url: String?){
+            Glide.with(imageView)
+                .load(url)
+                .circleCrop()
+                .into(imageView)
+        }
+        fun loadInGlide(imageView: ImageView, url: String?){
+            Glide.with(imageView)
+                .load(url)
+                .into(imageView)
         }
     }
 

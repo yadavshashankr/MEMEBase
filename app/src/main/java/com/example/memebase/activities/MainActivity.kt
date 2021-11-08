@@ -45,6 +45,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.memebase.databinding.ActivityLoginBinding
 import com.example.memebase.databinding.ActivityMainBinding
 import com.example.memebase.models.memesModels.MemeModel
+import com.example.memebase.utils.Tools.Companion.setViewGone
+import com.example.memebase.utils.Tools.Companion.setViewVisible
 import com.example.memebase.viewModels.LoginActivityViewModel
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.likethesalad.android.aaper.api.EnsurePermissions
@@ -55,12 +57,7 @@ import java.util.concurrent.Executors
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-
     private var memeRecyclerAdapter: MemeRecyclerAdapter? = null
-    private var ivNoInternet: ImageView? = null
-    private var recyclerView: RecyclerView? = null
-    private var circularProgressIndicator: ProgressBar? = null
     private val viewModel: MainActivityViewModel by viewModels()
     var bindingA: ActivityMainBinding?= null
 
@@ -78,25 +75,27 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getMemeListObserver()?.observe(this, {
             if (it != null) {
-                bindingA?.ivNoInternet?.visibility = View.GONE
-                bindingA?.recyclerView?.visibility = View.VISIBLE
+                setViewVisible(bindingA?.recyclerView)
+                setViewGone(bindingA?.ivNoInternet)
                 memeRecyclerAdapter?.memeListData = it.data.memes
                 memeRecyclerAdapter?.notifyDataSetChanged()
             } else {
-                bindingA?.ivNoInternet?.visibility = View.VISIBLE
-                bindingA?.recyclerView?.visibility = View.GONE
+                setViewVisible(bindingA?.ivNoInternet)
+                setViewGone(bindingA?.recyclerView)
             }
         })
         viewModel.getProgressBar().observe(this){
             if (it){
-                bindingA?.progressCircular?.visibility = View.VISIBLE
-                bindingA?.recyclerView?.visibility = View.GONE
+                setViewVisible(bindingA?.progressCircular)
+                setViewGone(bindingA?.recyclerView)
             }else{
-                bindingA?.progressCircular?.visibility = View.GONE
-                bindingA?.recyclerView?.visibility = View.VISIBLE
+                setViewVisible(bindingA?.recyclerView)
+                setViewGone(bindingA?.progressCircular)
             }
         }
+
         loadAPIData()
+
         bindingA?.fab?.setOnClickListener{
             videoComp()
         }
@@ -106,29 +105,19 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, SelectVideoActivity::class.java))
     }
 
-
     private fun initRecyclerView() {
-
         bindingA?.recyclerView.apply {
-
-         this?.layoutManager = LinearLayoutManager(this@MainActivity)
-
-         val decoration = DividerItemDecoration(applicationContext,
+            this?.layoutManager = LinearLayoutManager(this@MainActivity)
+            val decoration = DividerItemDecoration(applicationContext,
              DividerItemDecoration.VERTICAL)
             this?.addItemDecoration(decoration)
-
-         memeRecyclerAdapter= MemeRecyclerAdapter()
+            memeRecyclerAdapter= MemeRecyclerAdapter()
          this?.adapter = memeRecyclerAdapter
-
         }
-
     }
-
-
     fun loadAPIData(){
         Executors.newSingleThreadExecutor().execute { viewModel?.makeApiCall()}
     }
-
     override fun onBackPressed() {
         Tools.showDialog(this)
     }

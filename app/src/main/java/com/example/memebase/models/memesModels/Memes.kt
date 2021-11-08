@@ -8,7 +8,6 @@ import java.lang.reflect.Type
 data class Memes(val id: String?, val name: String?, val url:String?, val width: Int?,
                  val height: String?, val box_count: Int?){
 
-
     class TypeConverterMemes {
         private val gson : Gson = Gson()
         @TypeConverter
