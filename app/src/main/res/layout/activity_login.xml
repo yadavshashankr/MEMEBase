@@ -2,14 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activities.LoginActivity">
+    tools:context=".ui.LoginActivity">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.memebase.viewModels.LoginActivityViewModel" />
-
     </data>
 
 
@@ -17,8 +15,8 @@
     android:background="@drawable/backgnd"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/_15sdp"
-    >
+    android:padding="@dimen/_15sdp">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,17 +24,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
-
-        <LinearLayout
+            <LinearLayout
             android:translationX="-1000dp"
             android:id="@+id/ll_register"
             android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
 
             <EditText
                 android:id="@+id/et_userId"
@@ -48,7 +42,7 @@
                 android:textColorHint="@color/white"
                 android:background="@android:color/darker_gray"/>
 
-            <include layout="@layout/white_border"/>
+             <include layout="@layout/white_border"/>
 
             <EditText
                 android:id="@+id/et_userPassword"
@@ -84,7 +78,6 @@
             android:textSize="@dimen/_22ssp"
             android:layout_above="@+id/ll_signIn"
             android:layout_marginBottom="@dimen/_30sdp"
-
             android:textColor="@color/black"
             android:textStyle="bold|italic"
             android:textAlignment="center"
@@ -134,9 +127,6 @@
 
             <include layout="@layout/white_border"/>
 
-
-
-
         </LinearLayout>
 
         <Button
@@ -159,7 +149,6 @@
             android:layout_centerHorizontal="true"
             android:onClick="@{()->viewModel.onRegLogClick()}"
             android:layout_marginTop="@dimen/_20sdp"
-
             android:gravity="center"
             android:text="@string/signUp"
             android:textAlignment="center"

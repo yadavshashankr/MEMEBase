@@ -2,36 +2,32 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activities.MainActivity">
+    tools:context=".ui.MainActivity">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.memebase.viewModels.MainActivityViewModel"/>
-
-
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+  <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
-    <RelativeLayout
+      <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-        <androidx.recyclerview.widget.RecyclerView
+          <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
+            android:layout_height="match_parent" android:paddingBottom="@dimen/_20sdp"
+            android:clipToPadding="false"
             android:layout_margin="@dimen/_4sdp"
             />
-
         <ImageView
             android:visibility="gone"
             android:id="@+id/iv_noInternet"
@@ -39,14 +35,9 @@
             android:layout_height="@dimen/_300sdp"
             android:src="@drawable/nointernet"
             android:layout_centerInParent="true"/>
+      </RelativeLayout>
 
-    </RelativeLayout>
-
-
-
-
-
- <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
      android:layout_width="@dimen/_50sdp"
      android:layout_height="@dimen/_50sdp"
      android:id="@+id/fab"
@@ -57,7 +48,6 @@
      app:backgroundTint="@android:color/holo_blue_dark"
      app:maxImageSize="@dimen/_50sdp"
      android:src="@drawable/videocomp"/>
-
     <androidx.core.widget.ContentLoadingProgressBar
         style="?android:progressBarStyle"
         android:id="@+id/progress_circular"
@@ -70,5 +60,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,29 +1,14 @@
 package com.example.memebase.viewModels
 
 import android.app.Application
-import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.util.Patterns
-import android.view.View
 import android.widget.Toast
-import androidx.databinding.Observable
-import androidx.databinding.ObservableField
 import androidx.lifecycle.*
 
-import com.example.memebase.activities.LoginActivity
-import com.example.memebase.activities.MainActivity
-import com.example.memebase.db.AppDatabase
-import com.example.memebase.db.Dao
-import com.example.memebase.globals.ApplicationConstant
-import com.example.memebase.utils.EmailValidator
 import com.example.memebase.utils.EmailValidator.Companion.isValidEmail
 import com.example.memebase.utils.Tools.Companion.removeWhiteSpaces
 import dagger.hilt.android.lifecycle.HiltViewModel
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel

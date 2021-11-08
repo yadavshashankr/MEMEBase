@@ -1,11 +1,8 @@
 package com.example.memebase.viewModels
 
 import android.app.Application
-import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import com.example.memebase.activities.SelectVideoActivity
 import com.example.memebase.models.memesModels.MemeModel
 
 import com.example.memebase.repositories.NetworkRepository

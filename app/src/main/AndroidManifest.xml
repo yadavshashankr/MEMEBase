@@ -10,22 +10,22 @@
     <application
         android:name=".MemeApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/appimage"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/appimage"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" >
         <activity
-            android:name=".activities.CompressedVideoActivity"
+            android:name=".ui.CompressedVideoActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.VideoSelectedActivity"
+            android:name=".ui.VideoSelectedActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.SelectVideoActivity"
+            android:name=".ui.SelectVideoActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".ui.LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true" />
     </application>
 

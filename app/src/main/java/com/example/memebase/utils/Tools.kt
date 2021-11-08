@@ -2,12 +2,7 @@ package com.example.memebase.utils
 
 import android.app.Dialog
 import android.content.Context
-import android.content.pm.PackageManager
-import android.database.Cursor
-import android.net.Uri
 import android.text.Editable
-import androidx.core.app.ActivityCompat
-import android.provider.MediaStore
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
@@ -18,7 +13,7 @@ import android.view.View
 import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.example.memebase.activities.LoginActivity
+import com.example.memebase.ui.LoginActivity
 
 
 class Tools {

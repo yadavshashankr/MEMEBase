@@ -1,4 +1,4 @@
-package com.example.memebase.activities
+package com.example.memebase.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

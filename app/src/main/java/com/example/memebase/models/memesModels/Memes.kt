@@ -1,12 +1,15 @@
 package com.example.memebase.models.memesModels
 
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.room.TypeConverter
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
-data class Memes(val id: String?, val name: String?, val url:String?, val width: Int?,
-                 val height: String?, val box_count: Int?){
+data class Memes(var id: String, var name: String, var url:String, var width: Int,
+                 var height: String, var box_count: Int){
 
     class TypeConverterMemes {
         private val gson : Gson = Gson()
@@ -23,4 +26,18 @@ data class Memes(val id: String?, val name: String?, val url:String?, val width:
             return gson.toJson(someObject)
         }
     }
+}
+@BindingAdapter("android:loadImageDataCir")
+fun loadImageDataCir(imageView: ImageView, url: String){
+    Glide.with(imageView)
+        .load(url)
+        .circleCrop()
+        .into(imageView)
+}
+
+@BindingAdapter("android:loadImageData")
+fun loadImageData(imageView: ImageView, url: String){
+    Glide.with(imageView)
+        .load(url)
+        .into(imageView)
 }

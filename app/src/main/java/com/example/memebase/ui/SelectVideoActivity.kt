@@ -1,4 +1,4 @@
-package com.example.memebase.activities
+package com.example.memebase.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,12 +8,8 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.memebase.R
 import com.example.memebase.databinding.ActivitySelectVideoBinding
-import com.example.memebase.utils.Tools
 import com.example.memebase.viewModels.SelectVideoActivityViewModel
-import android.content.res.AssetFileDescriptor
 import android.widget.Toast
-import com.example.memebase.globals.ApplicationConstant
-import dagger.hilt.android.qualifiers.ApplicationContext
 
 
 class SelectVideoActivity : AppCompatActivity() {

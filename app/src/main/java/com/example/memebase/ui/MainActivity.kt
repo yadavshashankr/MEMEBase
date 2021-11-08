@@ -1,57 +1,26 @@
-package com.example.memebase.activities
+package com.example.memebase.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.memebase.R
 import com.example.memebase.adapter.MemeRecyclerAdapter
 import com.example.memebase.utils.Tools
 
 import com.example.memebase.viewModels.MainActivityViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import androidx.activity.result.ActivityResultCallback
 
 
-
-import androidx.activity.result.ActivityResultLauncher
-import androidx.core.content.ContextCompat.checkSelfPermission
-import androidx.core.content.PermissionChecker.checkSelfPermission
-import android.content.DialogInterface
-import android.os.AsyncTask
-import android.view.View
-import android.widget.ImageView
-import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.lifecycleScope
-import com.example.memebase.databinding.ActivityLoginBinding
 import com.example.memebase.databinding.ActivityMainBinding
-import com.example.memebase.models.memesModels.MemeModel
 import com.example.memebase.utils.Tools.Companion.setViewGone
 import com.example.memebase.utils.Tools.Companion.setViewVisible
-import com.example.memebase.viewModels.LoginActivityViewModel
-import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.likethesalad.android.aaper.api.EnsurePermissions
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import java.util.concurrent.Executors
 
 
