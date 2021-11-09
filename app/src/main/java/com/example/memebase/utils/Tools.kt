@@ -84,18 +84,6 @@ class Tools {
             rotateAnim.fillAfter = true
             imageView.startAnimation(rotateAnim)
         }
-
-        fun loadInGlideCir(imageView: ImageView, url: String?){
-            Glide.with(imageView)
-                .load(url)
-                .circleCrop()
-                .into(imageView)
-        }
-        fun loadInGlide(imageView: ImageView, url: String?){
-            Glide.with(imageView)
-                .load(url)
-                .into(imageView)
-        }
-    }
+   }
 
 }
