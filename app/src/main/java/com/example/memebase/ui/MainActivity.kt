@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     fun loadAPIData(){
-        Executors.newSingleThreadExecutor().execute { viewModel?.makeApiCall()}
+        Executors.newSingleThreadExecutor().execute { viewModel.makeApiCall()}
     }
     override fun onBackPressed() {
         Tools.showDialog(this)

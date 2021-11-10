@@ -8,6 +8,10 @@
         <variable
             name="viewModel"
             type="com.example.memebase.viewModels.LoginActivityViewModel" />
+
+        <variable
+            name="tools"
+            type="com.example.memebase.utils.Tools" />
     </data>
 
 
@@ -35,7 +39,7 @@
             <EditText
                 android:id="@+id/et_userId"
                 android:padding="@dimen/_4sdp"
-                android:afterTextChanged="@{(edtitable)->viewModel.afterUserIdUpChange(edtitable)}"
+                android:afterTextChanged="@{(edtitable)->tools.Companion.afterUserIdUpChange(edtitable)}"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:hint="@string/userId"
@@ -50,7 +54,7 @@
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
-                android:afterTextChanged="@{(edtitable)->viewModel.afterUserPasswordUpChange(edtitable)}"
+                android:afterTextChanged="@{(edtitable)->tools.Companion.afterUserPasswordUpChange(edtitable)}"
                 android:hint="@string/userPassword"
                 android:textColorHint="@color/white"
                 android:background="@android:color/darker_gray"/>
@@ -63,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:hint="@string/userName"
-                android:afterTextChanged="@{(edtitable)->viewModel.afterUserNameChange(edtitable)}"
+                android:afterTextChanged="@{(edtitable)->tools.Companion.afterUserNameChange(edtitable)}"
                 android:textColorHint="@color/white"
                 android:background="@android:color/darker_gray"/>
 
@@ -107,7 +111,7 @@
                 android:padding="@dimen/_4sdp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
-                android:afterTextChanged="@{(edtitable)->viewModel.afterUserIdChange(edtitable)}"
+                android:afterTextChanged="@{(edtitable)->tools.Companion.afterUserIdChange(edtitable)}"
                 android:hint="@string/userId"
                 android:textColorHint="@color/white"
                 android:background="@android:color/darker_gray"/>
@@ -115,7 +119,7 @@
             <include layout="@layout/white_border"/>
 
             <EditText
-                android:afterTextChanged="@{(edtitable)->viewModel.afterPasswordChange(edtitable)}"
+                android:afterTextChanged="@{(edtitable)->tools.Companion.afterPasswordChange(edtitable)}"
                 android:id="@+id/et_userPasswordSign"
                 android:padding="@dimen/_4sdp"
                 android:inputType="textPassword"

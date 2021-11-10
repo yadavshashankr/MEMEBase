@@ -3,12 +3,13 @@ package com.example.memebase.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.*
 import androidx.activity.viewModels
 import com.example.memebase.R
 import com.example.memebase.viewModels.LoginActivityViewModel
 import androidx.databinding.DataBindingUtil
 import com.example.memebase.databinding.ActivityLoginBinding
+import com.example.memebase.utils.Tools
+import com.example.memebase.utils.Tools.Companion.shortToast
 import com.example.memebase.utils.Tools.Companion.toEditable
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,13 +33,14 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(Intent(this, MainActivity::class.java))
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }else{
-                Toast.makeText(this, "User Not Found", Toast.LENGTH_SHORT).show()
+                shortToast(this, Tools.error)
             }
         }
         viewModel.liveUsrReg.observe(this) {
             if (it) {
-                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
-
+                shortToast(this, "Success")
+            }else{
+                shortToast(this, Tools.error)
             }
         }
         viewModel.regLog.observe(this) {
@@ -46,6 +48,11 @@ class LoginActivity : AppCompatActivity() {
                 bringSignIn(binding)
             } else if (it.equals("LOGIN")) {
                 bringSignUp(binding)
+            }
+        }
+        viewModel.liveSignInValidation.observe(this){
+            when(it){
+                false -> shortToast(this, Tools.error)
             }
         }
         viewModel.liveSubmitted.observe(this){

@@ -43,5 +43,4 @@ class MemeRecyclerAdapter: RecyclerView.Adapter<MemeRecyclerAdapter.MyViewHolder
             }
         }
     }
-
 }

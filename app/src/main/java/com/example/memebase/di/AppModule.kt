@@ -50,9 +50,9 @@ class AppModule {
             .build()
     }
 
-    @Singleton
     @Provides
-    fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences {
+    @Singleton
+    fun getSharedPreference(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences("memeApp", Context.MODE_PRIVATE)
     }
 }

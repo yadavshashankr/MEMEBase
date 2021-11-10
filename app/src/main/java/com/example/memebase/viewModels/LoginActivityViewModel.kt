@@ -4,16 +4,18 @@ import android.app.Application
 import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.lifecycle.*
-
-import com.example.memebase.utils.EmailValidator.Companion.isValidEmail
-import com.example.memebase.utils.Tools.Companion.removeWhiteSpaces
+import com.example.memebase.utils.Tools
+import com.example.memebase.utils.Tools.Companion.getSigInValidation
+import com.example.memebase.utils.Tools.Companion.getSigUpValidation
+import com.example.memebase.utils.Tools.Companion.putRegisterCredsToConsistentStorage
+import com.example.memebase.utils.Tools.Companion.siginInSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
-
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginActivityViewModel @Inject constructor(private val sharedPreferences: SharedPreferences, app: Application):
-    AndroidViewModel(app) {
+    AndroidViewModel(app)
+{
 
     var mutableUsrFnd=MutableLiveData<Boolean>()
     var liveUsrFnd:LiveData<Boolean> = mutableUsrFnd
@@ -24,55 +26,19 @@ class LoginActivityViewModel @Inject constructor(private val sharedPreferences: 
     var mutableSubmitted=MutableLiveData<Boolean>()
     var liveSubmitted:LiveData<Boolean> = mutableSubmitted
 
+    var mutableSignUpVlidation=MutableLiveData<Boolean>()
+    var liveSignUpValidation:LiveData<Boolean> = mutableSignUpVlidation
 
-    var usrId: String = ""
-    var usrPwd: String = ""
-    var usrNm: String = ""
-    var usrIdUp: String = ""
-    var usrPswUp: String = ""
+    var mutableSignInVlidation=MutableLiveData<Boolean>()
+    var liveSignInValidation:LiveData<Boolean> = mutableSignInVlidation
+
     private val regLogMut= MutableLiveData<String>()
     val regLog: LiveData<String> = regLogMut
-    var error: String? = ""
+
     private val context by lazy { app.applicationContext }
-
-
-    fun afterUserIdChange(s: CharSequence) {
-        this.usrId = s.toString()
-    }
-
-    fun afterPasswordChange(s: CharSequence) {
-        this.usrPwd = s.toString()
-    }
-
-    fun afterUserNameChange(s: CharSequence) {
-        this.usrNm = s.toString()
-    }
-
-    fun afterUserIdUpChange(s: CharSequence) {
-        this.usrIdUp = s.toString()
-    }
-
-    fun afterUserPasswordUpChange(s: CharSequence) {
-        this.usrPswUp = s.toString()
-    }
 
     init {
         regLogMut.value = ""
-    }
-
-    fun validationPassword(): Boolean{
-        error = "Please Enter Password"
-        return !usrPwd.isEmpty()
-    }
-
-    fun validationPasswordUp(): Boolean{
-        error = "Please Enter Password"
-        return !usrPswUp.isEmpty()
-    }
-
-    fun validationName(): Boolean{
-        error = "Please Enter Username"
-        return !usrNm.isEmpty()
     }
 
     fun checkRegister(){
@@ -80,14 +46,12 @@ class LoginActivityViewModel @Inject constructor(private val sharedPreferences: 
        if (regLogMut.value.equals("REGISTER") || regLogMut.value.equals("")){
            login()
        }else if (regLogMut.value.equals("LOGIN") ){
-           error = ""
-           if (!registerUser())   {
+           if (!registerUser()) {
                mutableSubmitted.value = false
-               Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+               Toast.makeText(context, Tools.error, Toast.LENGTH_SHORT).show()
            }
        }
     }
-
     fun onRegLogClick(){
         if (regLogMut.value.equals("REGISTER") || regLogMut.value.equals("")){
             regLogMut.value = "LOGIN"
@@ -97,37 +61,28 @@ class LoginActivityViewModel @Inject constructor(private val sharedPreferences: 
         }
 
     }
-
     fun login(){
-        error = ""
-        if (!isValidEmail(removeWhiteSpaces(usrId)) || !validationPassword()){
-            mutableSubmitted.value = false
-            if (error.equals("", true)){
-                error = "Please enter valid Email"
-            }
-            Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
-            return
+        if (getSigInValidation()){
+            mutableSignInVlidation.postValue(true)
+            mutableSubmitted.value = true
+            mutableUsrFnd.value = siginInSuccess(sharedPreferences)
         }else{
+            mutableSignInVlidation.postValue(false)
             mutableSubmitted.value = false
-            mutableUsrFnd.value = sharedPreferences.getString(usrId, "")?.equals(usrId, ignoreCase = true) == true &&
-                    sharedPreferences.getString(usrPwd, "")?.equals(usrPwd, ignoreCase = true)  == true
+            mutableUsrFnd.value = false
         }
     }
-
     fun registerUser(): Boolean{
-        if (error.equals("", true)){
-            error = "Please enter valid Email"
-        }
-        if (isValidEmail(removeWhiteSpaces(usrIdUp)) && validationPasswordUp() && validationName()){
-            sharedPreferences.edit().putString(usrIdUp, usrIdUp).apply()
-            sharedPreferences.edit().putString(usrPswUp, usrPswUp).apply()
-            sharedPreferences.edit().putString(usrNm, usrNm).apply()
+        if (getSigUpValidation()){
+            mutableSignUpVlidation.postValue(true)
+            putRegisterCredsToConsistentStorage(sharedPreferences)
             mutableUsrReg.value = true
             mutableSubmitted.value = false
             return true
         }else{
             mutableUsrReg.value = false
+            mutableSignUpVlidation.postValue(false)
         }
         return false
     }
-    }
+}
