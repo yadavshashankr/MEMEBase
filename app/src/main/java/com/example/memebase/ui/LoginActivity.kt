@@ -55,15 +55,6 @@ class LoginActivity : AppCompatActivity() {
                 false -> shortToast(this, Tools.error)
             }
         }
-        viewModel.liveSubmitted.observe(this){
-            if (it){
-                binding.btnSubmit.setBackgroundColor(resources.getColor(android.R.color.white))
-                binding.btnSubmit.setTextColor(resources.getColor(R.color.purple_700))
-            }else{
-                binding.btnSubmit.setBackgroundColor(resources.getColor(R.color.purple_700))
-                binding.btnSubmit.setTextColor(resources.getColor(android.R.color.white))
-            }
-        }
     }
 
     private fun bringSignIn(binding: ActivityLoginBinding) {

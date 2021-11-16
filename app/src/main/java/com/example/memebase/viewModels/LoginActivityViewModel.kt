@@ -23,9 +23,6 @@ class LoginActivityViewModel @Inject constructor(private val sharedPreferences: 
     var mutableUsrReg=MutableLiveData<Boolean>()
     var liveUsrReg:LiveData<Boolean> = mutableUsrReg
 
-    var mutableSubmitted=MutableLiveData<Boolean>()
-    var liveSubmitted:LiveData<Boolean> = mutableSubmitted
-
     var mutableSignUpVlidation=MutableLiveData<Boolean>()
     var liveSignUpValidation:LiveData<Boolean> = mutableSignUpVlidation
 
@@ -42,13 +39,12 @@ class LoginActivityViewModel @Inject constructor(private val sharedPreferences: 
     }
 
     fun checkRegister(){
-        mutableSubmitted.value = true
+
        if (regLogMut.value.equals("REGISTER") || regLogMut.value.equals("")){
            login()
        }else if (regLogMut.value.equals("LOGIN") ){
            if (!registerUser()) {
-               mutableSubmitted.value = false
-               Toast.makeText(context, Tools.error, Toast.LENGTH_SHORT).show()
+               Tools.shortToast(context, Tools.error)
            }
        }
     }
@@ -64,25 +60,20 @@ class LoginActivityViewModel @Inject constructor(private val sharedPreferences: 
     fun login(){
         if (getSigInValidation()){
             mutableSignInVlidation.postValue(true)
-            mutableSubmitted.value = true
             mutableUsrFnd.value = siginInSuccess(sharedPreferences)
         }else{
             mutableSignInVlidation.postValue(false)
-            mutableSubmitted.value = false
             mutableUsrFnd.value = false
         }
     }
     fun registerUser(): Boolean{
         if (getSigUpValidation()){
-            mutableSignUpVlidation.postValue(true)
             putRegisterCredsToConsistentStorage(sharedPreferences)
             mutableUsrReg.value = true
-            mutableSubmitted.value = false
             return true
         }else{
             mutableUsrReg.value = false
-            mutableSignUpVlidation.postValue(false)
         }
-        return false
+        return mutableUsrReg.value == true
     }
 }

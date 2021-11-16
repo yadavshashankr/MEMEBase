@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
          this?.adapter = memeRecyclerAdapter
         }
     }
-    fun loadAPIData(){
+    private fun loadAPIData(){
         Executors.newSingleThreadExecutor().execute { viewModel.makeApiCall()}
     }
     override fun onBackPressed() {

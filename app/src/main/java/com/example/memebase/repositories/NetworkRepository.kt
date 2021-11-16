@@ -1,5 +1,6 @@
 package com.example.memebase.repositories
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.memebase.db.Dao
@@ -38,6 +39,7 @@ class NetworkRepository @Inject constructor(private val retroService: RetroServi
                 //hide progress indicator .
                 mutableProgressDialog.postValue(false)
             }
+            @SuppressLint("NullSafeMutableLiveData")
             override fun onError(e: Throwable) {
                 mutableMemeList.postValue(null)
                 mutableProgressDialog.postValue(false)

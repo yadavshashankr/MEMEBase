@@ -10,6 +10,7 @@ import com.example.memebase.R
 import com.example.memebase.databinding.ActivitySelectVideoBinding
 import com.example.memebase.viewModels.SelectVideoActivityViewModel
 import android.widget.Toast
+import com.example.memebase.utils.Tools
 
 
 class SelectVideoActivity : AppCompatActivity() {
@@ -24,7 +25,7 @@ class SelectVideoActivity : AppCompatActivity() {
             data = it
         })
         }else{
-            Toast.makeText(this, resources.getString(R.string.sizespec), Toast.LENGTH_LONG).show()
+            Tools.longToast(this, resources.getString(R.string.sizespec))
         }
 
     }
