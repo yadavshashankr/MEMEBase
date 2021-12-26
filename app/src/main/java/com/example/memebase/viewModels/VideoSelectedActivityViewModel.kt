@@ -2,9 +2,7 @@ package com.example.memebase.viewModels
 
 import android.app.Application
 import android.net.Uri
-import android.util.Log
 import androidx.core.net.toUri
-import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

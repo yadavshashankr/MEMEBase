@@ -2,7 +2,6 @@ package com.example.memebase.viewModels
 
 import android.app.Application
 import android.content.SharedPreferences
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.memebase.utils.Tools
 import com.example.memebase.utils.Tools.Companion.getSigInValidation

@@ -12,8 +12,6 @@ import android.content.Intent
 import android.view.View
 import android.view.animation.RotateAnimation
 import android.widget.ImageView
-import androidx.lifecycle.LiveData
-import com.bumptech.glide.Glide
 import com.example.memebase.ui.LoginActivity
 import javax.inject.Inject
 import android.content.SharedPreferences
