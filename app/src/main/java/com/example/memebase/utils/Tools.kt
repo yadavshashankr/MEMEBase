@@ -49,7 +49,6 @@ class Tools  {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setCancelable(false)
             dialog.setContentView(R.layout.custom_layout)
-            val body = dialog.findViewById(R.id.tvTitle) as TextView
             val yesBtn = dialog.findViewById(R.id.btn_yes) as Button
             val noBtn = dialog.findViewById(R.id.btn_no) as Button
             yesBtn.setOnClickListener {

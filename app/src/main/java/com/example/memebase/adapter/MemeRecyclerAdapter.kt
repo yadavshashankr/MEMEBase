@@ -25,7 +25,7 @@ class MemeRecyclerAdapter: RecyclerView.Adapter<MemeRecyclerAdapter.MyViewHolder
         memeListData?.get(position)
         holder.applicationBinding.memes = memeListData?.get(position)
         holder.applicationBinding.executePendingBindings()
-        (holder as MemeRecyclerAdapter.MyViewHolder).bind()
+        (holder).bind()
     }
     override fun getItemCount(): Int {
         return memeListData?.size!!
