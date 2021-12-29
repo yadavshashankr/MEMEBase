@@ -28,13 +28,13 @@ class LoginActivityViewModel @Inject constructor(private val sharedPreferences: 
     var mutableSignInVlidation=MutableLiveData<Boolean>()
     var liveSignInValidation:LiveData<Boolean> = mutableSignInVlidation
 
-    private val regLogMut= MutableLiveData<String>()
+    val regLogMut= MutableLiveData<String>()
     val regLog: LiveData<String> = regLogMut
 
     private val context by lazy { app.applicationContext }
 
     init {
-        regLogMut.value = ""
+        regLogMut.value = "REGISTER"
     }
 
     fun checkRegister(){

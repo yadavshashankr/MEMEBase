@@ -63,13 +63,11 @@ class LoginActivity : AppCompatActivity() {
         binding.etUserId.text = "".toEditable()
         binding.etUserPassword.text = "".toEditable()
         binding.etUserName.text = "".toEditable()
-        binding.tvRegSign.text = getString(R.string.signUp)
     }
     private fun bringSignUp(binding: ActivityLoginBinding) {
         binding.llRegister.animate()?.translationX(0f)?.duration = 1000
         binding.llSignIn.animate()?.translationX(1000f)?.duration = 1000
         binding.etUserIdSign.text = "".toEditable()
         binding.etUserPasswordSign.text = "".toEditable()
-        binding.tvRegSign.text = getString(R.string.logIn)
     }
 }

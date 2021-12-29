@@ -24,7 +24,7 @@ class SelectVideoActivity : AppCompatActivity() {
             data = it
         })
         }else{
-            Tools.longToast(this, resources.getString(R.string.sizespec))
+            Tools.longToast(this, resources.getString(R.string.sizeSpec))
         }
 
     }

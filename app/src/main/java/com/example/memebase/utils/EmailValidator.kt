@@ -21,9 +21,7 @@ class EmailValidator() : TextWatcher {
     }
 
     companion object {
-        /**
-         * Email validation pattern.
-         */
+
         val EMAIL_PATTERN: Pattern = Pattern.compile(
             "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
                     "\\@" +
@@ -34,12 +32,7 @@ class EmailValidator() : TextWatcher {
                     ")+"
         )
 
-        /**
-         * Validates if the given input is a valid email address.
-         *
-         * @param email        The email to validate.
-         * @return `true` if the input is a valid email. `false` otherwise.
-         */
+
         fun isValidEmail(email: CharSequence?): Boolean {
             return email != null && EMAIL_PATTERN.matcher(email).matches()
         }

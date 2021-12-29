@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 import androidx.databinding.DataBindingUtil
 import com.example.memebase.databinding.ActivityMainBinding
+import com.example.memebase.utils.NetworkCheck
 import com.example.memebase.utils.Tools.Companion.setViewGone
 import com.example.memebase.utils.Tools.Companion.setViewVisible
 import com.likethesalad.android.aaper.api.EnsurePermissions
@@ -42,17 +44,6 @@ class MainActivity : AppCompatActivity() {
         bindingA?.viewModel = viewModel
         initRecyclerView()
 
-        viewModel.getMemeListObserver()?.observe(this, {
-            if (it != null) {
-                setViewVisible(bindingA?.recyclerView)
-                setViewGone(bindingA?.ivNoInternet)
-                memeRecyclerAdapter?.memeListData = it.data.memes
-                memeRecyclerAdapter?.notifyDataSetChanged()
-            } else {
-                setViewVisible(bindingA?.ivNoInternet)
-                setViewGone(bindingA?.recyclerView)
-            }
-        })
         viewModel.getProgressBar().observe(this){
             if (it){
                 setViewVisible(bindingA?.progressCircular)
@@ -62,6 +53,21 @@ class MainActivity : AppCompatActivity() {
                 setViewGone(bindingA?.progressCircular)
             }
         }
+
+        viewModel.getMemeListObserver()?.observe(this, {
+            if (it != null) {
+                setViewVisible(bindingA?.recyclerView)
+                setViewGone(bindingA?.ivNoInternet)
+                memeRecyclerAdapter?.memeListData = it.data.memes
+                memeRecyclerAdapter?.notifyDataSetChanged()
+            } else {
+                if(!NetworkCheck.verifyAvailableNetwork(this)){
+                    setViewVisible(bindingA?.ivNoInternet)
+                    setViewGone(bindingA?.recyclerView)
+                }
+
+            }
+        })
 
         loadAPIData()
 

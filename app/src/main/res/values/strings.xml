@@ -6,10 +6,10 @@
     <string name="submit">SUBMIT</string>
     <string name="signUp">REGISTER</string>
     <string name="logIn">LOGIN</string>
-    <string name="select_video">SELECT VIDEO</string>
+    <string name="selectVideo">SELECT VIDEO</string>
     <string name="play">PLAY</string>
     <string name="pause">PAUSE</string>
     <string name="instruct">Select Any Video of Size above 10 MB \n and below 50 MB</string>
     <string name="logout">Are you sure you want \n to Logout?</string>
-    <string name="sizespec">Please select video of specified size</string>
+    <string name="sizeSpec">Please select video of specified size</string>
 </resources>

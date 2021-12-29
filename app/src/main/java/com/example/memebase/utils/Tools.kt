@@ -13,12 +13,11 @@ import android.view.View
 import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import com.example.memebase.ui.LoginActivity
-import javax.inject.Inject
 import android.content.SharedPreferences
 import android.widget.Toast
 
 
-class Tools @Inject constructor(sharedPreference: SharedPreferences) {
+class Tools  {
 
 
 

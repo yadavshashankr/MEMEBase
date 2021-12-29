@@ -40,8 +40,9 @@ class NetworkRepository @Inject constructor(private val retroService: RetroServi
             }
             @SuppressLint("NullSafeMutableLiveData")
             override fun onError(e: Throwable) {
-                mutableMemeList.postValue(null)
                 mutableProgressDialog.postValue(false)
+                mutableMemeList.postValue(null)
+
             }
 
             override fun onNext(t: MemeModel) {
@@ -50,7 +51,6 @@ class NetworkRepository @Inject constructor(private val retroService: RetroServi
             }
 
             override fun onSubscribe(d: Disposable) {
-                mutableProgressDialog.postValue(true)
             }
         }
     }
