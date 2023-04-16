@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.LoginActivity">
 
@@ -16,7 +15,7 @@
 
 
 <RelativeLayout
-    android:background="@drawable/backgnd"
+    android:background="@drawable/meme_wallpaper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_15sdp">
@@ -25,9 +24,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
             android:translationX="-1000dp"
             android:id="@+id/ll_register"
@@ -41,6 +42,11 @@
                 android:padding="@dimen/_4sdp"
                 android:afterTextChanged="@{(edtitable)->tools.Companion.afterUserIdUpChange(edtitable)}"
                 android:layout_width="match_parent"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:inputType="textEmailAddress"
+                android:nextFocusDown="@+id/et_userPassword"
+                android:imeOptions="actionNext"
                 android:layout_height="@dimen/_35sdp"
                 android:hint="@string/userId"
                 android:textColorHint="@color/white"
@@ -53,6 +59,9 @@
                 android:padding="@dimen/_4sdp"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
+                android:nextFocusUp="@+id/et_userId"
+                android:nextFocusDown="@+id/et_userName"
+                android:imeOptions="actionNext"
                 android:layout_height="@dimen/_35sdp"
                 android:afterTextChanged="@{(edtitable)->tools.Companion.afterUserPasswordUpChange(edtitable)}"
                 android:hint="@string/userPassword"
@@ -65,8 +74,12 @@
                 android:id="@+id/et_userName"
                 android:padding="@dimen/_4sdp"
                 android:layout_width="match_parent"
+                android:imeOptions="actionDone"
                 android:layout_height="@dimen/_35sdp"
                 android:hint="@string/userName"
+                android:singleLine="true"
+                android:inputType="text"
+                android:maxLines="1"
                 android:afterTextChanged="@{(edtitable)->tools.Companion.afterUserNameChange(edtitable)}"
                 android:textColorHint="@color/white"
                 android:background="@android:color/darker_gray"/>
@@ -76,19 +89,21 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_22ssp"
-            android:layout_above="@+id/ll_signIn"
-            android:layout_marginBottom="@dimen/_30sdp"
-            android:textColor="@color/black"
-            android:textStyle="bold|italic"
-            android:textAlignment="center"
-            android:text="@string/app_name"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/ll_signIn"
+                android:layout_marginBottom="37dp"
+                android:background="@android:color/darker_gray"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:text="@string/app_name"
+                android:textAlignment="center"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_22ssp"
+                android:textStyle="bold|italic" />
 
-        <LinearLayout
-
+            <LinearLayout
             android:id="@+id/ll_signIn"
             android:layout_centerInParent="true"
             android:layout_width="match_parent"
@@ -99,6 +114,7 @@
                 android:visibility="invisible"
                 android:padding="@dimen/_4sdp"
                 android:layout_width="match_parent"
+                android:inputType="textEmailAddress"
                 android:layout_height="@dimen/_35sdp"
                 android:hint="@string/userId"
                 android:textColorHint="@color/white"
@@ -106,17 +122,21 @@
 
             <include layout="@layout/white_border"/>
 
-            <EditText
-                android:id="@+id/et_userIdSign"
-                android:padding="@dimen/_4sdp"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_35sdp"
-                android:afterTextChanged="@{(edtitable)->tools.Companion.afterUserIdChange(edtitable)}"
-                android:hint="@string/userId"
-                android:textColorHint="@color/white"
-                android:background="@android:color/darker_gray"/>
+                <EditText
+                    android:id="@+id/et_userIdSign"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:afterTextChanged="@{(edtitable)->tools.Companion.afterUserIdChange(edtitable)}"
+                    android:background="@android:color/darker_gray"
+                    android:inputType="textEmailAddress"
+                    android:nextFocusDown="@+id/et_userPasswordSign"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="@string/userId"
+                    android:padding="@dimen/_4sdp"
+                    android:textColorHint="@color/white" />
 
-            <include layout="@layout/white_border"/>
+                <include layout="@layout/white_border"/>
 
             <EditText
                 android:afterTextChanged="@{(edtitable)->tools.Companion.afterPasswordChange(edtitable)}"
@@ -124,6 +144,7 @@
                 android:padding="@dimen/_4sdp"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
+                android:imeOptions="actionDone"
                 android:layout_height="@dimen/_35sdp"
                 android:hint="@string/userPassword"
                 android:textColorHint="@color/white"
@@ -151,13 +172,17 @@
             android:layout_height="@dimen/_35sdp"
             android:layout_below="@+id/btn_submit"
             android:layout_centerHorizontal="true"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:background="@android:color/darker_gray"
+            android:textStyle="bold|italic"
             android:onClick="@{()->viewModel.onRegLogClick()}"
             android:layout_marginTop="@dimen/_20sdp"
             android:gravity="center"
             android:text="@{viewModel.regLog}"
             android:textAlignment="center"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="@dimen/_12ssp" />
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_18ssp"
+            tools:text="REGISTER"/>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 

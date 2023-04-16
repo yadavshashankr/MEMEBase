@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -9,6 +8,7 @@
             name="memes"
             type="com.example.memebase.models.memesModels.Memes" />
     </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,14 +20,10 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/ll_main"
+                android:id="@+id/ll_head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-
-
-
 
                 <ImageView android:id="@+id/thumbImageView"
                     android:layout_width="@dimen/_75sdp"
@@ -40,9 +36,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-
-                    >
+                    android:orientation="vertical">
 
                     <TextView android:id="@+id/tvName"
                         android:layout_width="wrap_content"
@@ -58,7 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_14ssp"
-                        android:text="@{String.valueOf(memes.width)}"
+                        android:text="@{`Width: `+String.valueOf(memes.width) + ` px`}"
                         android:textStyle="bold"
                         android:layout_marginStart="@dimen/_6sdp"
                         />
@@ -67,8 +61,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_14ssp"
-                        android:textColor="#d5d5d5"
-                        android:text="@{String.valueOf(memes.height)}"
+                        android:textStyle="bold"
+                        android:text="@{`Height: `+String.valueOf(memes.height) + ` px`}"
                         android:maxLines="3"
                         android:layout_margin="@dimen/_6sdp"
                         />
@@ -77,8 +71,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_14ssp"
-                        android:text="@{String.valueOf(memes.box_count)}"
-                        android:textColor="#d5d5d5"
+                        android:textStyle="bold"
+                        android:text="@{`Box Count: `+String.valueOf(memes.box_count)}"
                         android:maxLines="3"
                         android:layout_margin="@dimen/_6sdp"
                         />
@@ -88,17 +82,16 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/iv_arrow"
+                android:id="@+id/iv_download"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
-
-
+                android:src="@drawable/baseline_file_download_24" />
 
 
         </RelativeLayout>
+
         <View
             android:layout_above="@+id/iv_setImg"
             android:layout_width="wrap_content"

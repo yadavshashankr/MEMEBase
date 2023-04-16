@@ -32,7 +32,7 @@
             android:layout_margin="@dimen/_8sdp"
             android:enabled="@{!viewModel.compressing}"
             android:onClick="@{()->viewModel.compress()}"
-            android:text="Compress Video"
+            android:text="@string/compress_video"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -42,7 +42,7 @@
             android:id="@+id/progress_circular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/cardview_dark_background"
+            android:background="@android:color/transparent"
             android:elevation="@dimen/_4sdp"
             android:padding="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="parent"

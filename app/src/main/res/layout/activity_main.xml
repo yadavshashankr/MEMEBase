@@ -12,8 +12,8 @@
 
   <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
       <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,13 +21,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+
           <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" android:paddingBottom="@dimen/_20sdp"
-            android:clipToPadding="false"
-            android:layout_margin="@dimen/_4sdp"
-            />
+              android:id="@+id/recyclerView"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginStart="@dimen/_4sdp"
+              android:layout_marginTop="@dimen/_4sdp"
+              android:layout_marginEnd="@dimen/_4sdp"
+              android:layout_marginBottom="@dimen/_4sdp"
+              android:clipToPadding="false"
+              android:paddingBottom="@dimen/_20sdp" />
+
         <ImageView
             android:visibility="gone"
             android:id="@+id/iv_noInternet"
@@ -48,6 +53,7 @@
      app:backgroundTint="@android:color/holo_blue_dark"
      app:maxImageSize="@dimen/_50sdp"
      android:src="@drawable/videocomp"/>
+
     <androidx.core.widget.ContentLoadingProgressBar
         style="?android:progressBarStyle"
         android:id="@+id/progress_circular"

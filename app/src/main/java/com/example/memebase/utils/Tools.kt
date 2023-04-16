@@ -5,27 +5,28 @@ import android.content.Context
 import android.text.Editable
 import android.view.Window
 import android.widget.Button
-import android.widget.TextView
 import com.example.memebase.R
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
 import android.view.View
 import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import com.example.memebase.ui.LoginActivity
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.provider.MediaStore
 import android.widget.Toast
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 
 
 class Tools  {
-
-
-
-
     companion object{
-
-
-
         var usrId: String = ""
         var usrPwd: String = ""
         var usrNm: String = ""
@@ -71,9 +72,9 @@ class Tools  {
             view?.visibility = View.GONE
         }
         fun rotateDown(imageView: ImageView){
-            var mCurrRotation = 0f
+            val mCurrRotation = 0f
             val fromRotation: Float = mCurrRotation
-            var toRotation = 180f
+            val toRotation = 180f
 
             val rotateAnim = RotateAnimation(
                 fromRotation, toRotation, imageView.width / 2f, imageView.height / 2f
@@ -84,9 +85,9 @@ class Tools  {
         }
 
         fun rotateUp(imageView: ImageView){
-            var mCurrRotation = 180f
+            val mCurrRotation = 180f
             val fromRotation: Float = mCurrRotation
-            var toRotation = 360f
+            val toRotation = 360f
 
             val rotateAnim = RotateAnimation(
                 fromRotation, toRotation, imageView.width / 2f, imageView.height / 2f
@@ -116,22 +117,22 @@ class Tools  {
             this.usrPswUp = s.toString()
         }
 
-        fun validationPassword(): Boolean{
+        private fun validationPassword(): Boolean{
             error = "Please Enter Password"
             return !usrPwd.isEmpty()
         }
 
-        fun validationPasswordUp(): Boolean{
+        private fun validationPasswordUp(): Boolean{
             error = "Please Enter Password"
             return !usrPswUp.isEmpty()
         }
 
-        fun validationName(): Boolean{
+        private fun validationName(): Boolean{
             error = "Please Enter Username"
             return !usrNm.isEmpty()
         }
 
-       fun getEmailLoginVerified(): Boolean{
+       private fun getEmailLoginVerified(): Boolean{
            return getEmailVerificationProcess(usrId)
        }
         private fun getEmailVerificationProcess(usrId: String?): Boolean{
@@ -145,7 +146,7 @@ class Tools  {
                 false -> false
             }
         }
-        fun getEmailSignUpVerified(): Boolean{
+        private fun getEmailSignUpVerified(): Boolean{
             return getEmailUpVerificationProcess(usrIdUp)
         }
 
@@ -161,15 +162,19 @@ class Tools  {
         }
 
         fun putRegisterCredsToConsistentStorage( sp: SharedPreferences){
-            sp.edit().putString(usrIdUp, usrIdUp).apply()
-            sp.edit().putString(usrPswUp, usrPswUp).apply()
-            sp.edit().putString(usrNm, usrNm).apply()
+            sp.edit().putString("userid", usrIdUp).apply()
+            sp.edit().putString("password", usrPswUp).apply()
+            sp.edit().putString("name", usrNm).apply()
         }
 
         fun siginInSuccess(sp: SharedPreferences): Boolean{
             error = "User Not Found"
-            return  sp.getString(usrId, "")?.equals(usrId, ignoreCase = true) == true &&
-                    sp.getString(usrPwd, "")?.equals(usrPwd, ignoreCase = true)  == true
+            return  sp.getString("userid", "")?.equals(usrId, ignoreCase = true) == true &&
+                    sp.getString("password", "")?.equals(usrPwd, ignoreCase = true)  == true
+        }
+
+        fun isUserPresent(sp: SharedPreferences): Boolean{
+            return sp.getString("userid", "")?.equals("") == false
         }
 
         fun shortToast(context: Context, message: String?){
@@ -178,6 +183,27 @@ class Tools  {
 
         fun longToast(context: Context, message: String?){
             Toast.makeText(context,message, Toast.LENGTH_LONG).show()
+        }
+
+        fun saveImageToStorage(context: Context, bitmapObject : Bitmap, name : String) {
+            val imageOutStream: OutputStream? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                val values = ContentValues()
+                values.put(MediaStore.Images.Media.DISPLAY_NAME, "$name.jpeg")
+                values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+                values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/MEMEBase")
+                val uri =
+                    context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+                context.contentResolver.openOutputStream(uri as Uri)
+            } else {
+                val imagePath =
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                        .toString()
+                val image = File(imagePath, "memes")
+                FileOutputStream(image)
+            }
+            imageOutStream.use { imageOutStream ->
+                bitmapObject.compress(Bitmap.CompressFormat.JPEG, 100, imageOutStream)
+            }
         }
     }
 }

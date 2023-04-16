@@ -1,23 +1,23 @@
 package com.example.memebase.ui
 
+
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.example.memebase.R
-import com.example.memebase.viewModels.LoginActivityViewModel
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.memebase.R
 import com.example.memebase.databinding.ActivityLoginBinding
 import com.example.memebase.utils.Tools
 import com.example.memebase.utils.Tools.Companion.shortToast
 import com.example.memebase.utils.Tools.Companion.toEditable
+import com.example.memebase.viewModels.LoginActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private val viewModel: LoginActivityViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
@@ -28,10 +28,16 @@ class LoginActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        if(viewModel.isUserPresent()){
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+
         viewModel.liveUsrFnd.observe(this) {
             if (it) {
                 startActivity(Intent(this, MainActivity::class.java))
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                finish()
             }else{
                 shortToast(this, Tools.error)
             }
@@ -53,6 +59,7 @@ class LoginActivity : AppCompatActivity() {
         viewModel.liveSignInValidation.observe(this){
             when(it){
                 false -> shortToast(this, Tools.error)
+                else -> {}
             }
         }
     }

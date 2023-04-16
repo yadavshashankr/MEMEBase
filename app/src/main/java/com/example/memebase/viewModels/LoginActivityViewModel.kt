@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import com.example.memebase.utils.Tools
 import com.example.memebase.utils.Tools.Companion.getSigInValidation
 import com.example.memebase.utils.Tools.Companion.getSigUpValidation
+import com.example.memebase.utils.Tools.Companion.isUserPresent
 import com.example.memebase.utils.Tools.Companion.putRegisterCredsToConsistentStorage
 import com.example.memebase.utils.Tools.Companion.siginInSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,46 +23,43 @@ class LoginActivityViewModel @Inject constructor(private val sharedPreferences: 
     var mutableUsrReg=MutableLiveData<Boolean>()
     var liveUsrReg:LiveData<Boolean> = mutableUsrReg
 
-    var mutableSignUpVlidation=MutableLiveData<Boolean>()
-    var liveSignUpValidation:LiveData<Boolean> = mutableSignUpVlidation
+    var mutableSignInValidation=MutableLiveData<Boolean>()
+    var liveSignInValidation:LiveData<Boolean> = mutableSignInValidation
 
-    var mutableSignInVlidation=MutableLiveData<Boolean>()
-    var liveSignInValidation:LiveData<Boolean> = mutableSignInVlidation
-
-    val regLogMut= MutableLiveData<String>()
-    val regLog: LiveData<String> = regLogMut
+    val regLogMutable= MutableLiveData<String>()
+    val regLog: LiveData<String> = regLogMutable
 
     private val context by lazy { app.applicationContext }
 
     init {
-        regLogMut.value = "REGISTER"
+        regLogMutable.value = "REGISTER"
     }
 
     fun checkRegister(){
 
-       if (regLogMut.value.equals("REGISTER") || regLogMut.value.equals("")){
+       if (regLogMutable.value.equals("REGISTER") || regLogMutable.value.equals("")){
            login()
-       }else if (regLogMut.value.equals("LOGIN") ){
+       }else if (regLogMutable.value.equals("LOGIN") ){
            if (!registerUser()) {
                Tools.shortToast(context, Tools.error)
            }
        }
     }
     fun onRegLogClick(){
-        if (regLogMut.value.equals("REGISTER") || regLogMut.value.equals("")){
-            regLogMut.value = "LOGIN"
+        if (regLogMutable.value.equals("REGISTER") || regLogMutable.value.equals("")){
+            regLogMutable.value = "LOGIN"
 
-        }else if (regLogMut.value.equals("LOGIN")){
-            regLogMut.value = "REGISTER"
+        }else if (regLogMutable.value.equals("LOGIN")){
+            regLogMutable.value = "REGISTER"
         }
 
     }
     fun login(){
         if (getSigInValidation()){
-            mutableSignInVlidation.postValue(true)
+            mutableSignInValidation.postValue(true)
             mutableUsrFnd.value = siginInSuccess(sharedPreferences)
         }else{
-            mutableSignInVlidation.postValue(false)
+            mutableSignInValidation.postValue(false)
             mutableUsrFnd.value = false
         }
     }
@@ -74,5 +72,9 @@ class LoginActivityViewModel @Inject constructor(private val sharedPreferences: 
             mutableUsrReg.value = false
         }
         return mutableUsrReg.value == true
+    }
+
+    fun isUserPresent() : Boolean{
+        return isUserPresent(sharedPreferences)
     }
 }

@@ -19,7 +19,7 @@ class NetworkRepository @Inject constructor(private val retroService: RetroServi
     var mutableProgressDialog= MutableLiveData<Boolean>()
     var progressDialog: LiveData<Boolean> = mutableProgressDialog
 
-    fun getAllMemes(): LiveData<MemeModel>? {
+    fun getAllMemes(): LiveData<MemeModel> {
         return dao.getAllMemes()
     }
     fun insertRecord(memeModel: MemeModel) {
@@ -35,7 +35,6 @@ class NetworkRepository @Inject constructor(private val retroService: RetroServi
     private fun getMemeListObserverRx(): Observer<MemeModel> {
         return object : Observer<MemeModel> {
             override fun onComplete() {
-                //hide progress indicator .
                 mutableProgressDialog.postValue(false)
             }
             @SuppressLint("NullSafeMutableLiveData")

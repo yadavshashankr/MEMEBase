@@ -5,13 +5,11 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.memebase.R
 import com.example.memebase.adapter.MemeRecyclerAdapter
-import com.example.memebase.utils.Tools
 
 import com.example.memebase.viewModels.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +21,6 @@ import com.example.memebase.utils.NetworkCheck
 import com.example.memebase.utils.Tools.Companion.setViewGone
 import com.example.memebase.utils.Tools.Companion.setViewVisible
 import com.likethesalad.android.aaper.api.EnsurePermissions
-import java.util.concurrent.Executors
 
 
 @AndroidEntryPoint
@@ -54,26 +51,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.getMemeListObserver()?.observe(this, {
+        viewModel.getMemeListObserver().observe(this) {
             if (it != null) {
                 setViewVisible(bindingA?.recyclerView)
                 setViewGone(bindingA?.ivNoInternet)
                 memeRecyclerAdapter?.memeListData = it.data.memes
+                memeRecyclerAdapter?.viewModel = viewModel
                 memeRecyclerAdapter?.notifyDataSetChanged()
             } else {
-                if(!NetworkCheck.verifyAvailableNetwork(this)){
+                if (!NetworkCheck.verifyAvailableNetwork(this)) {
                     setViewVisible(bindingA?.ivNoInternet)
                     setViewGone(bindingA?.recyclerView)
                 }
-
             }
-        })
-
-        loadAPIData()
-
+        }
         bindingA?.fab?.setOnClickListener{
             videoComp()
         }
+
+        loadAPIData()
     }
     @EnsurePermissions(permissions = [Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE])
     private fun videoComp() {
@@ -83,17 +79,16 @@ class MainActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         bindingA?.recyclerView.apply {
             this?.layoutManager = LinearLayoutManager(this@MainActivity)
-            val decoration = DividerItemDecoration(applicationContext,
-             DividerItemDecoration.VERTICAL)
+            val decoration = DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL)
             this?.addItemDecoration(decoration)
             memeRecyclerAdapter= MemeRecyclerAdapter()
-         this?.adapter = memeRecyclerAdapter
+            this?.adapter = memeRecyclerAdapter
         }
     }
     private fun loadAPIData(){
-        Executors.newSingleThreadExecutor().execute { viewModel.makeApiCall()}
+         viewModel.makeApiCall()
     }
     override fun onBackPressed() {
-        Tools.showDialog(this)
+        finish()
     }
 }
