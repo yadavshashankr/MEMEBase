@@ -6,7 +6,7 @@
 
         <variable
             name="memes"
-            type="com.example.memebase.models.memesModels.Memes" />
+            type="com.shashank.memebase.models.memesModels.Memes" />
     </data>
 
     <RelativeLayout

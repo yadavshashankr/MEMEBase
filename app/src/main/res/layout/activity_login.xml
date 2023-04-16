@@ -6,11 +6,11 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.memebase.viewModels.LoginActivityViewModel" />
+            type="com.shashank.memebase.viewModels.LoginActivityViewModel" />
 
         <variable
             name="tools"
-            type="com.example.memebase.utils.Tools" />
+            type="com.shashank.memebase.utils.Tools" />
     </data>
 
 
