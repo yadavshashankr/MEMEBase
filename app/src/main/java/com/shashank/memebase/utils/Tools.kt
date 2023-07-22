@@ -3,6 +3,7 @@ package com.shashank.memebase.utils
 import android.content.Context
 import android.view.View
 import android.content.SharedPreferences
+import android.text.Editable
 import android.widget.Toast
 
 
@@ -21,6 +22,8 @@ class Tools  {
             }
             return true
         }
+
+        fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 
         fun setViewVisible(view: View?){
             view?.visibility = View.VISIBLE
