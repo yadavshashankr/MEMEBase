@@ -11,7 +11,6 @@ import javax.inject.Inject
 
 class SecuredPreferenceImpl @Inject constructor(private var sharedPreferences: SharedPreferences, var context: Context) : SecuredPreference {
 
-
     override suspend fun generateSecuredPreference() {
 
         try {
