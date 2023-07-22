@@ -17,7 +17,6 @@ import com.shashank.memebase.meme.memesModels.Memes
                 Data.TypeConverterData::class,
                 Memes.TypeConverterMemes::class)
 abstract class AppDatabase: RoomDatabase() {
-
     abstract fun getDao(): Dao
 
     companion object{
