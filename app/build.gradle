@@ -3,11 +3,12 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
 
 ext{
-    version_name = "v1.0.0-RC24"
-    release_notes = "Decompressing apk."
+    version_name = "v1.0.2-RC1"
+    release_notes = "Testing release notes."
 }
 
 android {
@@ -128,9 +129,9 @@ dependencies {
     //Secure Storage
     implementation "androidx.security:security-crypto:1.0.0"
 
-//    //Firebase
-//    implementation platform('com.google.firebase:firebase-bom:32.2.0')
-//    implementation 'com.google.firebase:firebase-analytics-ktx'
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:32.2.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
 
 
