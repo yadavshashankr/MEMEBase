@@ -13,6 +13,7 @@ import com.shashank.memebase.meme.memesModels.Memes
 @Database(entities = [MemeModel::class],
                 version = 3,
                 exportSchema = false)
+
 @TypeConverters(
                 Data.TypeConverterData::class,
                 Memes.TypeConverterMemes::class)
