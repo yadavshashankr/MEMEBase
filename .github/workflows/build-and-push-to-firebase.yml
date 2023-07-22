@@ -1,0 +1,80 @@
+name: Android CI
+on:
+  pull_request_target:
+    types:
+      - closed
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: decode keystore
+        id: decode_keystore
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: 'keystore.jks'
+          fileDir: '/home/runner/work/Radius-Agent/Radius-Agent/app/keystore/'
+          encodedString: ${{ secrets.SIGNING_KEY_STORE_BASE64 }}
+
+      - name: set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'zulu'
+
+      - name: cache gradle & wrapper
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+
+      - name: build release
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+        run: ./gradlew assembleRelease
+
+      - name: retrieve version
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        run: |
+          echo ::set-env name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)
+        id: android_version
+
+      - name: retrieve release notes
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        run: |
+          echo ::set-env name=RELEASE_NOTES::$(${{github.workspace}}/gradlew -q printReleaseNotes)
+        id: release_note
+
+      - name: set tag
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "app/build/outputs/apk/release/*.apk"
+          tag: ${{env.VERSION_NAME}}
+          token: ${{secrets.TOKEN}}
+
+      - name: list files
+        run: ls -lrt app/build/outputs/apk/release
+
+      - name: upload artifact to Firebase App Distribution
+        uses: nickwph/firebase-app-distribution-action@v1
+        with:
+          file: app/build/outputs/apk/release/app-release.apk
+          app: ${{ secrets.FIREBASE_APP_ID }}
+          credentials: ${{ secrets.FIREBASE_CREDENTIALS }}
+          credentials-file: ${{ secrets.FIREBASE_CREDENTIALS_FILE }}  # Optional: This is ignored if credentials is defined.
+          release-notes: ${{env.RELEASE_NOTES}}                  # Optional
+          release-notes-file: ""               # Optional
+          testers: ""                          # Optional
+          testers-file: ""                     # Optional
+          groups: "testers"                           # Optional
+          groups-file: ""                      # Optional
+          debug: false                         # Optional: Default false. A flag you can include to print verbose log output.
+          cache: true                          # Optional: Default true. Whether to cache the firebase tools for next job, keeping this "true" will speed up the build.
+          upgrade: true                        # Optional: Default true. Whether to attempt to upgrade firebase tools when cache is "true", turning this "false" will speed up the build.
