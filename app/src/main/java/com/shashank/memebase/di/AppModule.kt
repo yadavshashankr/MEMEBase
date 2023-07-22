@@ -7,6 +7,8 @@ import com.shashank.memebase.db.AppDatabase
 import com.shashank.memebase.db.Dao
 import com.shashank.memebase.globals.ApplicationConstant
 import com.shashank.memebase.network.RetroService
+import com.shashank.memebase.storage.SaveDataImpl
+import com.shashank.memebase.storage.domain.SaveData
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +23,17 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
+
+
+    @Provides
+    fun providesContext(application: Application): Context {
+        return application.applicationContext
+    }
+
+    @Provides
+    fun providesSaveData(@ApplicationContext applicationContext: Context) : SaveData{
+        return SaveDataImpl(applicationContext)
+    }
 
     @Provides
     @Singleton

@@ -9,18 +9,18 @@ import com.shashank.memebase.models.memesModels.MemeModel
 import com.shashank.memebase.models.memesModels.Memes
 
 import com.shashank.memebase.repositories.NetworkRepository
-import com.shashank.memebase.utils.Tools.Companion.saveImageToStorage
+import com.shashank.memebase.storage.domain.SaveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
 @HiltViewModel
-class MainActivityViewModel @Inject constructor(private val repository: NetworkRepository, application: Application) : AndroidViewModel(application) {
+class MainActivityViewModel @Inject constructor(private val repository: NetworkRepository, application: Application, private val saveData: SaveData) : AndroidViewModel(application) {
 
 
     fun getMemeListObserver(): LiveData<MemeModel> {
-    return repository.getAllMemes()
-}
+        return repository.getAllMemes()
+    }
 
     fun getProgressBar(): LiveData<Boolean>{
         return repository.progressDialog
@@ -35,7 +35,7 @@ class MainActivityViewModel @Inject constructor(private val repository: NetworkR
     fun downloadMeme(context: Context, memes: Memes){
         Executors.newSingleThreadExecutor().execute {
             val bitmap = Glide.with(context.applicationContext).asBitmap().load(memes.url).into(memes.width, memes.height.toInt()).get()
-            saveImageToStorage(context, bitmap, memes.name.replace(" ", "_"))
+            saveData.saveImageToStorage(bitmap, memes.name.replace(" ", "_"))
         }
     }
 }
