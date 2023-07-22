@@ -1,29 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="memes"
-            type="com.shashank.memebase.models.memesModels.Memes" />
+            type="com.shashank.memebase.meme.memesModels.Memes" />
     </data>
-
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        app:cardCornerRadius="@dimen/_24sdp"
+        app:cardElevation="@dimen/_5sdp"
+        app:cardUseCompatPadding="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_background"
         android:orientation="horizontal">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/rl_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ll_head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <ImageView android:id="@+id/thumbImageView"
                     android:layout_width="@dimen/_75sdp"
@@ -31,21 +51,25 @@
                     android:loadImageDataCir="@{memes.url}"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/_6sdp"
-                    />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@mipmap/ic_launcher"
+                    tools:igone="ContentDescription"/>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
 
                     <TextView android:id="@+id/tvName"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_15ssp"
                         android:text="@{memes.name}"
                         android:textStyle="bold"
                         android:textColor="@android:color/holo_blue_dark"
-                        android:layout_margin="@dimen/_6sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        app:layout_constraintStart_toEndOf="@+id/thumbImageView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_download"
                         />
 
                     <TextView android:id="@+id/tvWidth"
@@ -53,58 +77,74 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_14ssp"
                         android:text="@{`Width: `+String.valueOf(memes.width) + ` px`}"
-                        android:textStyle="bold"
-                        android:layout_marginStart="@dimen/_6sdp"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintStart_toEndOf="@+id/thumbImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/tvName"
                         />
 
                     <TextView android:id="@+id/tvHeight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:text="@{`Height: `+String.valueOf(memes.height) + ` px`}"
                         android:maxLines="3"
-                        android:layout_margin="@dimen/_6sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintStart_toEndOf="@+id/thumbImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/tvWidth"
                         />
 
                     <TextView android:id="@+id/tvBoxCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:text="@{`Box Count: `+String.valueOf(memes.box_count)}"
                         android:maxLines="3"
-                        android:layout_margin="@dimen/_6sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layout_constraintStart_toEndOf="@+id/thumbImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/tvHeight"
                         />
 
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/iv_download"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/baseline_file_download_24" />
 
 
-        </RelativeLayout>
 
+                <ImageView
+                    android:id="@+id/iv_download"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/baseline_file_download_24"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:igone="ContentDescription"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <View
             android:layout_above="@+id/iv_setImg"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_1sdp"
-            android:background="@android:color/darker_gray"/>
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_main"/>
         <ImageView
-            android:layout_below="@+id/rl_main"
             android:visibility="gone"
             android:loadImageData="@{memes.url}"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_300sdp"
-            android:id="@+id/iv_setImg"/>
-    </RelativeLayout>
-
+            android:id="@+id/iv_setImg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_main"
+            tools:igone="ContentDescription"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

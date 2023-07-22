@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.shashank.memebase.models.memesModels.Data
-import com.shashank.memebase.models.memesModels.MemeModel
-import com.shashank.memebase.models.memesModels.Memes
+import com.shashank.memebase.meme.memesModels.Data
+import com.shashank.memebase.meme.memesModels.MemeModel
+import com.shashank.memebase.meme.memesModels.Memes
 
 
 @Database(entities = [MemeModel::class],

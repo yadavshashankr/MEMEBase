@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="label"
+            type="java.lang.String" />
+
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/tv_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:minLines="1"
+            android:paddingStart="@dimen/_20sdp"
+            android:paddingEnd="@dimen/_20sdp"
+            android:paddingTop="@dimen/_20sdp"
+            android:paddingBottom="@dimen/_20sdp"
+            android:textSize="@dimen/_16ssp"
+            android:text="@{label}"
+            android:textColor="@color/black_61c"
+            tools:text="@string/event"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/inter_regular_400"/>
+
+        <View
+            android:id="@+id/vw_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/blue_6ff"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_label"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

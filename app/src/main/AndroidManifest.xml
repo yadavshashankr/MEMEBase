@@ -1,45 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.shashank.memebase" >
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".MemeApplication"
+        android:name="com.shashank.memebase.MemeApplication"
         android:allowBackup="true"
         android:icon="@drawable/appimage"
         android:label="@string/app_name"
         android:roundIcon="@drawable/appimage"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" >
+        android:theme="@style/Theme.Memes" >
         <activity
-            android:name=".ui.CompressedVideoActivity"
+            android:name="com.shashank.memebase.meme.ui.CompressedVideoActivity"
             android:screenOrientation="portrait"
             android:exported="true" />
         <activity
-            android:name=".ui.VideoSelectedActivity"
+            android:name="com.shashank.memebase.meme.ui.VideoSelectedActivity"
             android:screenOrientation="portrait"
             android:exported="true" />
         <activity
-            android:name=".ui.SelectVideoActivity"
+            android:name="com.shashank.memebase.meme.ui.SelectVideoActivity"
             android:screenOrientation="portrait"
             android:exported="true" />
         <activity
-            android:name=".ui.LoginActivity"
+            android:name="com.shashank.memebase.entry.MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true" >
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.MainActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" />
     </application>
 
 </manifest>

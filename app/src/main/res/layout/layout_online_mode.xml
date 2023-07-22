@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="connected"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="drawableFirst"
+            type="android.graphics.drawable.Drawable" />
+
+        <import type="android.view.View"/>
+
+    </data>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_online_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_24sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:textColor="@color/black"
+        android:visibility="@{connected ? View.GONE : View.VISIBLE}"
+        android:layout_marginVertical="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:drawableStart="@{drawableFirst}"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/_14sdp"
+        android:fontFamily="@font/inter_medium"
+        android:drawablePadding="@dimen/_10sdp"
+        tools:text="Connected">
+    </androidx.appcompat.widget.AppCompatTextView>
+
+</layout>

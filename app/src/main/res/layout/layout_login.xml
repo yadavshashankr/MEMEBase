@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_30sdp"
+        app:cardElevation="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="@dimen/_50sdp"
+            android:paddingHorizontal="@dimen/_16sdp">
+
+            <com.shashank.memebase.views.TaskyAppCompatEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:error="false"
+                android:focusableInTouchMode="true"
+                app:hint="@string/email_address"
+                android:nextFocusDown="@id/et_password"
+                android:imeOptions="actionNext"
+                app:drawableLast="@null"
+                android:background="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/black"
+                tools:text="@string/app_name"/>
+
+            <com.shashank.memebase.views.TaskyAppCompatEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:error="false"
+                android:inputType="textPassword"
+                android:nextFocusUp="@id/et_email"
+                android:imeOptions="actionDone"
+                android:layout_marginTop="@dimen/_16sdp"
+                app:hint="@string/password"
+                app:isPassword="true"
+                app:drawableLast="@drawable/ic_password_text"
+                android:background="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_email"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/black"
+                tools:text="@string/app_name"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAllCaps="true"
+                android:text="@string/log_in"
+                android:textColor="@color/button_text_selector"
+                android:enabled="false"
+                android:background="@drawable/button_selector"
+                android:layout_marginTop="@dimen/_25sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_password"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:textAllCaps="true"
+                android:gravity="center_horizontal"
+                android:text="@string/login_screen_text"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+            <variable
+                name="setFabIcon"
+                type="android.graphics.drawable.Drawable"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:minHeight="@dimen/_100sdp"
+            app:elevation="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/black"
+                android:minHeight="@dimen/_100sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:paddingStart="0dp"
+                app:title="@string/welcome_back"
+                android:gravity="center"
+                android:textAlignment="center"
+                app:titleTextColor="@color/white"
+                app:titleTextAppearance="@style/Toolbar.TitleText">
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/white_top_rounded_24_rad"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/app_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/fab_back"
+            android:contentDescription="@string/submit"
+            app:useCompatPadding="true"
+            android:padding="0dp"
+            android:translationY="@dimen/_200sdp"
+            app:backgroundTint="@android:color/transparent"
+            app:maxImageSize="@dimen/_56sdp"
+            app:tint="@null"
+            android:layout_margin="@dimen/fab_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/layout_online_mode"/>
+
+        <include
+            android:id="@+id/layout_online_mode"
+            layout="@layout/layout_online_mode"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:visibility="visible"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

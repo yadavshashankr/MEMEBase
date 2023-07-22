@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="hint"
+            type="java.lang.String" />
+
+        <variable
+            name="inputType"
+            type="java.lang.Integer" />
+
+        <variable
+            name="password"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="valid"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="error"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="drawableLast"
+            type="android.graphics.drawable.Drawable" />
+
+        <import type="android.text.InputType" />
+
+    </data>
+
+
+<androidx.appcompat.widget.AppCompatEditText
+    android:id="@+id/et_input"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@{error ? @drawable/input_field_error : @drawable/input_field_background_selector}"
+    android:drawableEnd="@{valid ? @drawable/ic_green_tick : drawableLast != null ? drawableLast : null}"
+    android:fontFamily="@font/inter_regular_400"
+    android:inputType="@{password ? (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD) : InputType.TYPE_CLASS_TEXT }"
+    android:textColorHint="@color/grey_4b2"
+    android:textColor="@color/grey_d5a"
+    android:hint="@{hint}"
+    tools:background="@drawable/input_field_error"
+    tools:drawableEnd="@drawable/ic_green_tick">
+
+</androidx.appcompat.widget.AppCompatEditText>
+</layout>

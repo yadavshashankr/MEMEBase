@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.shashank.memebase.viewModels.VideoSelectedActivityViewModel" />
+            type="com.shashank.memebase.meme.viewModels.VideoSelectedActivityViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
