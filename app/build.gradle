@@ -7,7 +7,7 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.2-RC1"
+    version_name = "v1.0.2-RC2"
     release_notes = "Testing release notes."
 }
 
