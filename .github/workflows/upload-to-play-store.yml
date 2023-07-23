@@ -54,7 +54,7 @@ jobs:
         with:
           name: app-bundle
 
-      - name: Publish to Play Store
+      - name: publish to play store
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
@@ -63,5 +63,6 @@ jobs:
           track: production
           status: inProgress
           inAppUpdatePriority: 2
-          userFraction: 0.33
+          userFraction: 1.00
           whatsNewDirectory: app/distribution/whatsNewDirectory
+          changesNotSentForReview: true
