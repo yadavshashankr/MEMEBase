@@ -38,7 +38,7 @@ jobs:
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-        run: ./gradlew app:bundleProdRelease
+        run: ./gradlew bundleRelease
 
       - name: list files
         run: ls -lrt app/build/outputs/bundle/release
