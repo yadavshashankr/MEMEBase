@@ -64,4 +64,3 @@ jobs:
           status: completed
           inAppUpdatePriority: 2
           whatsNewDirectory: app/distribution/whatsNewDirectory
-          changesNotSentForReview: true
