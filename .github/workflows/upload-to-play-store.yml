@@ -61,8 +61,7 @@ jobs:
           packageName: com.shashank.memebase
           releaseFiles: app/build/outputs/bundle/release/app-release.aab
           track: production
-          status: inProgress
+          status: completed
           inAppUpdatePriority: 2
-          userFraction: 1.00
           whatsNewDirectory: app/distribution/whatsNewDirectory
           changesNotSentForReview: true
