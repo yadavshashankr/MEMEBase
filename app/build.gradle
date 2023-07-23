@@ -7,7 +7,7 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.4"
+    version_name = "v1.0.5"
     release_notes = "Attempt for play store."
 }
 
