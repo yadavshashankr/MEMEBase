@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity(), FragmentInflater by FragmentInflaterIm
         viewBinding.lifecycleOwner = this
 
         setObservers()
-
     }
 
     private fun setObservers() {
