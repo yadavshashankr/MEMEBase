@@ -17,10 +17,9 @@ jobs:
           serviceAccountJsonPlainText: ${{ env.SERVICE_ACCOUNT_JSON }}
           packageName: com.shashank.memebase
           releaseFiles: app/build/outputs/bundle/release/app-release.aab
-          track: beta
+          track: production
           status: inProgress
           inAppUpdatePriority: 2
-          userFraction: 1.00
+          userFraction: 0.15
           whatsNewDirectory: distribution/whatsNewDirectory
-          mappingFile: app/build/outputs/mapping/release/mapping.txt
-          debugSymbols: app/intermediates/merged_native_libs/release/out/lib
+          changesNotSentForReview: true
