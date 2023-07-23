@@ -7,8 +7,8 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.2-RC2"
-    release_notes = "Testing release notes."
+    version_name = "v1.0.3"
+    release_notes = "Attempt for play store."
 }
 
 android {

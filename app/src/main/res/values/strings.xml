@@ -38,5 +38,5 @@
     <string name="one_day_before">1 day before</string>
     <string name="video_compressor">Video Compressor</string>
     <string name="about">About</string>
-    <string name="about_msg">MEMEBase v%s</string>
+    <string name="about_msg">MEMEBase %s</string>
 </resources>
