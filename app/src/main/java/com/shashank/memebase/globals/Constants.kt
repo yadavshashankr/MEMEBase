@@ -15,8 +15,8 @@ class Constants {
     }
 
     object ApiProperties {
-        const val URL ="https://tasky.pl-coding.com/"
-        const val APP_URL: String = "https://api.imgflip.com/get_memes"
+//        const val URL ="https://tasky.pl-coding.com/"
+        const val APP_URL: String = "https://api.imgflip.com/"
         const val TABLE_NAME_MEME_MODEL: String = "mememodel"
         const val DEFAULT_REQUEST_TIMEOUT : Long =  400
         const val ACCESS_TOKEN_KEY = "AccessToken"

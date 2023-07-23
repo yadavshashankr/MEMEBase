@@ -42,7 +42,7 @@ android {
         release {
             buildConfigField "String", "API_KEY", "\"fbb80b2c798f41a1a16811e489e2bed6\""
             signingConfig signingConfigs.release
-            debuggable false
+            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

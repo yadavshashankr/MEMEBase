@@ -2,27 +2,26 @@ package com.shashank.memebase.meme.memesModels
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
 
-data class Data(val memes: ArrayList<Memes>){
+data class Data(@SerializedName("memes")
+                @Expose val memes: ArrayList<Memes>?){
 
-    class TypeConverterData {
-        private val gson : Gson = Gson()
+    object ConverterMemes {
         @TypeConverter
-        fun stringToSomeObjectList(data: String?) : Data? {
-            if(data == null)return null
-
-            val listType: Type = object : TypeToken<Data>() {}.type
-            return gson.fromJson(data, listType)
+        fun fromString(value: String?) : ArrayList<String> {
+            val listType = object : TypeToken<ArrayList<Memes>?>() {}.type
+            return Gson().fromJson(value, listType)
         }
 
         @TypeConverter
-        fun someObjectListToString(someObject: Data?): String?
-        {
-            return gson.toJson(someObject)
+        fun fromArrayList(list : ArrayList<Memes>?): String {
+            val gson = Gson()
+            return gson.toJson(list)
         }
-}
+    }
 
 
 }
