@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.View.OnClickListener
@@ -39,6 +40,7 @@ import com.shashank.memebase.usecases.domain.ToolbarHandler
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@Suppress("SameParameterValue")
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), FragmentInflater by FragmentInflaterImpl(), ToolbarHandler by ToolbarHandlerImpl(),  OnClickListener {
     private lateinit var viewBinding: ActivityEntryBinding
@@ -53,16 +55,21 @@ class MainActivity : AppCompatActivity(), FragmentInflater by FragmentInflaterIm
 
         setObservers()
 
-        if(userPreferences.isUserLoggedIn()){
-            startFragment(AgendaFragment.getInstance())
-        }else{
-            viewModel.makeMemeApiCall()
-            startFragment(LoginFragment.getInstance())
-        }
-
     }
 
     private fun setObservers() {
+
+        if(userPreferences.isUserLoggedIn()){
+            startFragment(AgendaFragment.getInstance())
+        }else{
+            startFragment(LoginFragment.getInstance())
+            viewModel.makeMemeApiCall().observe(this){
+                if (it?.data != null){
+                    Log.v("SUCCESS", "SUCCESS")
+                }
+            }
+        }
+
         viewModel.networkStatusObserver.observe(this){
                 when(it){
                 NetworkStatus.Available -> {

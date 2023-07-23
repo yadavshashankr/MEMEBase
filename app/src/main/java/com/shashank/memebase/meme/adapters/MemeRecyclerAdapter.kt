@@ -58,7 +58,7 @@ class MemeRecyclerAdapter: RecyclerView.Adapter<MemeRecyclerAdapter.MyViewHolder
 
         viewModel.downloadMeme(context, memes)
 
-        val memeName = memes.name.replace(" ", "_") + ".jpeg"
+        val memeName = memes.name?.replace(" ", "_") + ".jpeg"
         Toast.makeText(context, "Saved as Pictures/MEMEBase/$memeName", Toast.LENGTH_LONG).show()
     }
 }
