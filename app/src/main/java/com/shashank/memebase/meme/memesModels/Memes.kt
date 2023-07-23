@@ -5,11 +5,20 @@ import androidx.databinding.BindingAdapter
 import androidx.room.TypeConverter
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
-data class Memes(var id: String, var name: String, var url:String, var width: Int,
-                 var height: String, var box_count: Int){
+data class Memes(@SerializedName("id")
+                 @Expose var id: String?, @SerializedName("name")
+@Expose var name: String?, @SerializedName("url")
+@Expose var url:String?, @SerializedName("width")
+@Expose var width: Int?,
+                 @SerializedName("height")
+                 @Expose var height: String?, @SerializedName("box_count")
+                 @Expose var box_count: Int?, @SerializedName("captions")
+                 @Expose var captions: Int?){
 
     class TypeConverterMemes {
         private val gson : Gson = Gson()

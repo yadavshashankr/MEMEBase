@@ -3,12 +3,12 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'com.google.gms.google-services'
 }
 
 ext{
-    version_name = "v1.0.0-RC24"
-    release_notes = "Decompressing apk."
+    version_name = "v1.0.2-RC2"
+    release_notes = "Testing release notes."
 }
 
 android {
@@ -35,9 +35,14 @@ android {
 
     buildTypes {
         release {
+            buildConfigField "String", "API_KEY", "\"fbb80b2c798f41a1a16811e489e2bed6\""
             signingConfig signingConfigs.release
+            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField "String", "API_KEY", "\"fbb80b2c798f41a1a16811e489e2bed6\""
         }
     }
     buildFeatures {
@@ -125,9 +130,9 @@ dependencies {
     //Secure Storage
     implementation "androidx.security:security-crypto:1.0.0"
 
-//    //Firebase
-//    implementation platform('com.google.firebase:firebase-bom:32.2.0')
-//    implementation 'com.google.firebase:firebase-analytics-ktx'
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:32.2.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
 
 

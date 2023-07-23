@@ -11,15 +11,15 @@ import com.shashank.memebase.meme.memesModels.Memes
 
 
 @Database(entities = [MemeModel::class],
-                version = 3,
+                version = 4,
                 exportSchema = false)
+
 @TypeConverters(
-                Data.TypeConverterData::class,
-                Memes.TypeConverterMemes::class)
+                Data.ConverterMemes::class,
+                Memes.TypeConverterMemes::class,
+                MemeModel.TypeConverterData::class)
 abstract class AppDatabase: RoomDatabase() {
-
     abstract fun getDao(): Dao
-
     companion object{
         private var DB_INSTANCE: AppDatabase? = null
 

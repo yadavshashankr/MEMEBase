@@ -1,6 +1,8 @@
 name: Android CI
 on:
   pull_request_target:
+    branches:
+      - develop
     types:
       - closed
 jobs:
@@ -14,7 +16,7 @@ jobs:
         uses: timheuer/base64-to-file@v1.2
         with:
           fileName: 'keystore.jks'
-          fileDir: '/home/runner/work/Radius-Agent/Radius-Agent/app/keystore/'
+          fileDir: '/home/runner/work/MEMEBase/MEMEBase/app/keystore/'
           encodedString: ${{ secrets.SIGNING_KEY_STORE_BASE64 }}
 
       - name: set up JDK
