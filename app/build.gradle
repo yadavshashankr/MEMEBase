@@ -7,7 +7,7 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.3"
+    version_name = "v1.0.4"
     release_notes = "Attempt for play store."
 }
 
@@ -18,7 +18,7 @@ android {
         applicationId "com.shashank.memebase"
         minSdk 29
         targetSdk 34
-        versionCode 5
+        versionCode 6
         versionName project.ext.version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
