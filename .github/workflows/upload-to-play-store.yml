@@ -49,21 +49,15 @@ jobs:
           name: app-bundle
           path: app/build/outputs/bundle/release/app-release.aab
 
-deploy:
-  needs: build
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v3
+      - name: Download app bundle from artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: app-bundle
 
-    - name: Download app bundle from artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: app-bundle
-
-    - name: Publish to Play Store
-      uses: r0adkll/upload-google-play@v1
-      with:
-        serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-        packageName: com.shashank.memebase
-        releaseFiles: app/build/outputs/bundle/release/app-release.aab
-        track: alpha
+      - name: Publish to Play Store
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          packageName: com.shashank.memebase
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
+          track: alpha
