@@ -8,9 +8,12 @@ on:
     types:
       - closed
 jobs:
-  if_merged:
+  build-apk:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    outputs:
+      version_name: ${{ env.VERSION_NAME }}
+      release_notes: ${{ env.RELEASE_NOTES }}
     steps:
       - uses: actions/checkout@v3
       - name: decode keystore
@@ -63,23 +66,49 @@ jobs:
           echo ::set-env name=RELEASE_NOTES::$(${{github.workspace}}/gradlew -q printReleaseNotes)
         id: release_note
 
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release.apk
+          path: app/build/outputs/apk/release/
+
+  set-tag:
+    needs: [ build-apk ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app-release.apk
+          path: app/build/outputs/apk/release/
+
       - name: set tag
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "app/build/outputs/apk/release/*.apk"
-          tag: ${{env.VERSION_NAME}}
+          artifacts: app/build/outputs/apk/release/app-release.apk
+          tag:  ${{needs.build-apk.outputs.version_name}}
           token: ${{secrets.TOKEN}}
+          prerelease: true
 
-      - name: list files
-        run: ls -lrt app/build/outputs/apk/release
+  distribute-apk:
+    needs: [ build-apk ]
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_NOTES: ${{needs.build-apk.outputs.release_notes}}
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app-release.apk
+          path: app/build/outputs/apk/release/
 
       - name: upload artifact to Firebase App Distribution
         uses: nickwph/firebase-app-distribution-action@v1
         with:
           file: app/build/outputs/apk/release/app-release.apk
           app: ${{ secrets.FIREBASE_APP_ID }}
-          credentials: ${{ secrets.FIREBASE_CREDENTIALS }}
-          credentials-file: ${{ secrets.FIREBASE_CREDENTIALS_FILE }}  # Optional: This is ignored if credentials is defined.
+          credentials: ${{ secrets.FIREBASE_CREDENTIALS_FILE }}
+          credentials-file: ""
           release-notes: ${{env.RELEASE_NOTES}}                  # Optional
           release-notes-file: ""               # Optional
           testers: ""                          # Optional
