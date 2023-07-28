@@ -16,13 +16,6 @@ jobs:
       release_notes: ${{ env.RELEASE_NOTES }}
     steps:
       - uses: actions/checkout@v3
-#      - name: decode keystore
-#        id: decode_keystore
-#        uses: timheuer/base64-to-file@v1.2
-#        with:
-#          fileName: 'keystore.jks'
-#          fileDir: '/home/runner/work/MEMEBase/MEMEBase/app/keystore/'
-#          encodedString: ${{ secrets.SIGNING_KEY_STORE_BASE64 }}
 
       - name: set up JDK
         uses: actions/setup-java@v3
@@ -31,19 +24,12 @@ jobs:
           distribution: 'zulu'
 
       - name: cache gradle & wrapper
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-
-#      - name: apk build release
-#        env:
-#          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
-#          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
-#          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-#        run: ./gradlew assembleRelease
 
       - name: retrieve version
         env:
