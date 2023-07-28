@@ -7,7 +7,7 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.6-RC1"
+    version_name = "v1.0.6-RC2"
     release_notes = "Adding multiple jobs."
 }
 

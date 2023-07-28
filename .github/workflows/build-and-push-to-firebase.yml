@@ -30,13 +30,13 @@ jobs:
           java-version: 17
           distribution: 'zulu'
 
-#      - name: cache gradle & wrapper
-#        uses: actions/cache@v2
-#        with:
-#          path: |
-#            ~/.gradle/caches
-#            ~/.gradle/wrapper
-#          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+      - name: cache gradle & wrapper
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
 
 #      - name: apk build release
 #        env:
@@ -45,19 +45,20 @@ jobs:
 #          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
 #        run: ./gradlew assembleRelease
 
-#      - name: retrieve version
-#        env:
-#          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-#        run: |
-#          echo ::set-env name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)
-#        id: android_version
-#
-#      - name: retrieve release notes
-#        env:
-#          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-#        run: |
-#          echo ::set-env name=RELEASE_NOTES::$(${{github.workspace}}/gradlew -q printReleaseNotes)
-#        id: release_note
+      - name: retrieve version
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        run: |
+          echo ::set-env name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)
+        id: android_version
+
+      - name: retrieve release notes
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        run: |
+          echo ::set-env name=RELEASE_NOTES::$(${{github.workspace}}/gradlew -q printReleaseNotes)
+        id: release_note
+
       - name: Download artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
