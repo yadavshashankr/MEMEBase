@@ -7,8 +7,8 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.6-RC14"
-    release_notes = "Caching gradle."
+    version_name = "v1.0.6-RC15"
+    release_notes = "Skype integration."
 }
 
 android {
