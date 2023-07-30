@@ -44,7 +44,7 @@ jobs:
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: |
-          echo ::set-env name=RELEASE_NOTES::$(${{github.workspace}}/gradlew -q printVersionName)
+          echo ::set-env name=RELEASE_NOTES::$(${{github.workspace}}/gradlew -q printReleaseNotes)
         id: release_note
 
       - name: Download artifact
@@ -119,7 +119,7 @@ jobs:
     needs: [ fetch-apk ]
     runs-on: ubuntu-latest
     env:
-      VERSION_NAME: ${{needs.build-apk.outputs.version_name}}
+      VERSION_NAME: ${{needs.fetch-apk.outputs.version_name}}
     steps:
       - name: download artifact
         uses: actions/download-artifact@v3
@@ -139,7 +139,7 @@ jobs:
     needs: [ fetch-apk ]
     runs-on: ubuntu-latest
     env:
-      RELEASE_NOTES: ${{needs.build-apk.outputs.release_notes}}
+      RELEASE_NOTES: ${{needs.fetch-apk.outputs.release_notes}}
     steps:
       - name: download artifact
         uses: actions/download-artifact@v3
