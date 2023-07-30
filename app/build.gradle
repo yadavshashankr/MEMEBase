@@ -7,8 +7,8 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.6-RC27"
-    release_notes = "Skype integration."
+    version_name = "v1.0.6-RC28"
+    release_notes = "Skype_integration."
 }
 
 android {
