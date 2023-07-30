@@ -177,6 +177,23 @@ jobs:
           # Required skype_ids(both user_id  group_id) which u want to send to [also support multiple id which connect by space]
           skype_ids: 19:134370d03cec49cc89db26f75706c639@thread.skype
           # Optional (recommended): the path of message file or message file's folder [support emoji]
-          send_msg_path: 'message.txt'
+          send_msg_path: message.txt
           # Optional (recommended): the path of attach file or attach file's folder
           send_file_path: app/build/outputs/apk/release/Den_1.44_preprod.apk
+
+      - name: Rename file
+        run: mv message ${{env.RELEASE_NOTES}}
+
+      - name: Send skype
+        uses: Eloco/docker-action-send-skype@v2
+        with:
+          # Required skype username:
+          skype_username: ${{ secrets.SKYPE_USERNAME }}
+          # Required skype password:
+          skype_password: ${{ secrets.SKYPE_PASSWORD }}
+          # Required skype_ids(both user_id  group_id) which u want to send to [also support multiple id which connect by space]
+          skype_ids: 19:134370d03cec49cc89db26f75706c639@thread.skype
+          # Optional (recommended): the path of message file or message file's folder [support emoji]
+          send_msg_path: message.txt
+          # Optional (recommended): the path of attach file or attach file's folder
+          send_file_path: ${{env.RELEASE_NOTES}}
