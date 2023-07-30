@@ -26,7 +26,6 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu'
-          cache: 'gradle'
 
       - name: cache gradle & wrapper
         uses: actions/cache@v3
