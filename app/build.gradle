@@ -7,8 +7,10 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.6-RC33"
-    release_notes = "Changes : \n 1. Skype Integration \n 2. Skype Message Integration."
+    version_name = "v1.0.6-RC34"
+    release_notes = """Changes :
+                       1. Skype Integration 
+                       2. Skype Message Integration."""
 }
 
 android {
