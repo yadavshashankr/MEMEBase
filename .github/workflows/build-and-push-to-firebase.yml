@@ -22,9 +22,7 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu'
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.OS }}-gradle-
+          cache: gradle
 
 #      - name: cache gradle & wrapper
 #        uses: actions/cache@v3

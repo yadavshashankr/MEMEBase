@@ -7,7 +7,7 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.6-RC10"
+    version_name = "v1.0.6-RC11"
     release_notes = "Caching gradle."
 }
 
