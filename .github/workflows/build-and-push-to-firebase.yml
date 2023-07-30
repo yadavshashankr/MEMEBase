@@ -22,7 +22,6 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu'
-          cache: 'gradle'
 
       - name: cache gradle & wrapper
         uses: actions/cache@v3
@@ -38,14 +37,14 @@ jobs:
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: |
-          echo ::set-env name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)
+          echo ::set-env name=VERSION_NAME::$(gradlew -q printVersionName)
         id: android_version
 
       - name: retrieve release notes
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: |
-          echo ::set-env name=RELEASE_NOTES::$(${{github.workspace}}/gradlew -q printReleaseNotes)
+          echo ::set-env name=RELEASE_NOTES::$(gradlew -q printReleaseNotes)
         id: release_note
 
       - name: Download artifact
