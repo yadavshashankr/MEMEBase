@@ -7,8 +7,8 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.6-RC3"
-    release_notes = "Testing time efficient flow"
+    version_name = "v1.0.6-RC4"
+    release_notes = "Caching gradle."
 }
 
 android {

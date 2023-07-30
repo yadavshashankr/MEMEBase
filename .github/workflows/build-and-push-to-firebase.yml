@@ -8,7 +8,7 @@ on:
     types:
       - closed
 jobs:
-  build-apk:
+  fetch-apk:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     outputs:
@@ -22,6 +22,7 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu'
+          cache: 'gradle'
 
       - name: cache gradle & wrapper
         uses: actions/cache@v3
@@ -114,7 +115,7 @@ jobs:
           path: app/build/outputs/apk/release/
 
   set-tag:
-    needs: [ build-apk ]
+    needs: [ fetch-apk ]
     runs-on: ubuntu-latest
     steps:
       - name: download artifact
@@ -132,7 +133,7 @@ jobs:
           prerelease: true
 
   distribute-apk:
-    needs: [ build-apk ]
+    needs: [ fetch-apk ]
     runs-on: ubuntu-latest
     env:
       RELEASE_NOTES: ${{needs.build-apk.outputs.release_notes}}
