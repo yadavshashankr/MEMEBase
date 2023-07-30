@@ -26,8 +26,9 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu'
+          cache: 'gradle'
 
-      - name: Build Project
+      - name: build apk
         env:
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
