@@ -147,19 +147,33 @@ jobs:
           name: app-release.apk
           path: app/build/outputs/apk/release/
 
-      - name: upload artifact to Firebase App Distribution
-        uses: nickwph/firebase-app-distribution-action@v1
+#      - name: upload artifact to Firebase App Distribution
+#        uses: nickwph/firebase-app-distribution-action@v1
+#        with:
+#          file: app/build/outputs/apk/release/app-release.apk
+#          app: ${{ secrets.FIREBASE_APP_ID }}
+#          credentials: ${{ secrets.FIREBASE_CREDENTIALS_FILE }}
+#          credentials-file: ""
+#          release-notes: ${{env.RELEASE_NOTES}}                  # Optional
+#          release-notes-file: ""               # Optional
+#          testers: ""                          # Optional
+#          testers-file: ""                     # Optional
+#          groups: "testers"                           # Optional
+#          groups-file: ""                      # Optional
+#          debug: false                         # Optional: Default false. A flag you can include to print verbose log output.
+#          cache: true                          # Optional: Default true. Whether to cache the firebase tools for next job, keeping this "true" will speed up the build.
+#          upgrade: true                        # Optional: Default true. Whether to attempt to upgrade firebase tools when cache is "true", turning this "false" will speed up the build.
+
+      - name: Send skype
+        uses: Eloco/docker-action-send-skype@v2
         with:
-          file: app/build/outputs/apk/release/app-release.apk
-          app: ${{ secrets.FIREBASE_APP_ID }}
-          credentials: ${{ secrets.FIREBASE_CREDENTIALS_FILE }}
-          credentials-file: ""
-          release-notes: ${{env.RELEASE_NOTES}}                  # Optional
-          release-notes-file: ""               # Optional
-          testers: ""                          # Optional
-          testers-file: ""                     # Optional
-          groups: "testers"                           # Optional
-          groups-file: ""                      # Optional
-          debug: false                         # Optional: Default false. A flag you can include to print verbose log output.
-          cache: true                          # Optional: Default true. Whether to cache the firebase tools for next job, keeping this "true" will speed up the build.
-          upgrade: true                        # Optional: Default true. Whether to attempt to upgrade firebase tools when cache is "true", turning this "false" will speed up the build.
+          # Required skype username:
+          skype_username: ${{ secrets.SKYPE_USERNAME }}
+          # Required skype password:
+          skype_password: ${{ secrets.SKYPE_PASSWORD }}
+          # Required skype_ids(both user_id  group_id) which u want to send to [also support multiple id which connect by space]
+          skype_ids: 19:134370d03cec49cc89db26f75706c639@thread.skype
+          # Optional (recommended): the path of message file or message file's folder [support emoji]
+          send_msg_path: msg.txt
+          # Optional (recommended): the path of attach file or attach file's folder
+          send_file_path: app/build/outputs/apk/release/app-release.apk
