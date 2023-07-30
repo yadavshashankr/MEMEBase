@@ -22,16 +22,19 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu'
-
-      - name: cache gradle & wrapper
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.OS }}-gradle-
+
+#      - name: cache gradle & wrapper
+#        uses: actions/cache@v3
+#        with:
+#          path: |
+#            ~/.gradle/caches
+#            ~/.gradle/wrapper
+#          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+#          restore-keys: |
+#            ${{ runner.OS }}-gradle-
 
       - name: retrieve version
         env:
@@ -118,6 +121,8 @@ jobs:
   set-tag:
     needs: [ fetch-apk ]
     runs-on: ubuntu-latest
+    env:
+      VERSION_NAME: ${{needs.build-apk.outputs.version_name}}
     steps:
       - name: download artifact
         uses: actions/download-artifact@v3
@@ -129,7 +134,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: app/build/outputs/apk/release/app-release.apk
-          tag:  ${{needs.build-apk.outputs.version_name}}
+          tag:  ${{env.VERSION_NAME}}
           token: ${{secrets.TOKEN}}
           prerelease: true
 
