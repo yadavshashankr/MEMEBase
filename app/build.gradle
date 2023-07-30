@@ -7,7 +7,7 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.6-RC18"
+    version_name = "v1.0.6-RC19"
     release_notes = "Skype integration."
 }
 

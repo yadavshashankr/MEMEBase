@@ -147,6 +147,9 @@ jobs:
           name: app-release.apk
           path: app/build/outputs/apk/release/
 
+      - name: Rename file
+        run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/Den_1.44_preprod.apk
+
 #      - name: upload artifact to Firebase App Distribution
 #        uses: nickwph/firebase-app-distribution-action@v1
 #        with:
@@ -176,4 +179,4 @@ jobs:
           # Optional (recommended): the path of message file or message file's folder [support emoji]
           send_msg_path: app/msg.txt
           # Optional (recommended): the path of attach file or attach file's folder
-          send_file_path: app/build/outputs/apk/release/app-release.apk
+          send_file_path: app/build/outputs/apk/release/Den_1.44_preprod.apk
