@@ -128,7 +128,7 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: app_release
+          name: app-release.apk
           path: app/build/outputs/apk/release/
 
   set-tag:
@@ -140,7 +140,7 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
-          name: app_release
+          name: app-release.apk
           path: app/build/outputs/apk/release/
 
       - name: set tag
@@ -164,7 +164,7 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
-          name: app_release
+          name: app-release.apk
           path: app/build/outputs/apk/release/
 
       - name: Rename file
