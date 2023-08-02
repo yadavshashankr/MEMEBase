@@ -7,8 +7,9 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.6-RC35"
-    release_notes = 'Changes :\n\n1.Skype Integration\n\n2. Skype Message Integration.'
+    version_name = "v1.0.6-RC36"
+    release_notes = 'Changes : 1.Apk name'
+    environment = 'preprod'
 }
 
 android {
@@ -71,6 +72,18 @@ task printReleaseNotes {
     }
 }
 
+task printEnvironment {
+    doLast{
+        println project.ext.environment
+    }
+}
+
+task printAppName {
+    doLast{
+        println project.name
+    }
+}
+
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"
@@ -125,7 +138,7 @@ dependencies {
     //Interceptors
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
 
-    implementation("androidx.fragment:fragment-ktx:1.6.0")
+    implementation("androidx.fragment:fragment-ktx:1.6.1")
 
     //Secure Storage
     implementation "androidx.security:security-crypto:1.0.0"

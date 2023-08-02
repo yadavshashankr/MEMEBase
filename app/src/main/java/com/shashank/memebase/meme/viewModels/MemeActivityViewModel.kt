@@ -21,6 +21,7 @@ import javax.inject.Inject
 @Suppress("DEPRECATION")
 @HiltViewModel
 class MemeActivityViewModel @Inject constructor(private val repository: NetworkRepository, application: Application, private val saveData: SaveData) : AndroidViewModel(application) {
+
     private var mutableMemeListLiveData = MutableLiveData<MemeModel?>()
     private var memeListLiveData : LiveData<MemeModel?> = mutableMemeListLiveData
     private val scope = CoroutineScope(Dispatchers.IO)
