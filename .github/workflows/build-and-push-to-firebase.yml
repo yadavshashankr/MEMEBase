@@ -14,6 +14,8 @@ jobs:
     outputs:
       version_name: ${{ env.VERSION_NAME }}
       release_notes: ${{ env.RELEASE_NOTES }}
+      environment: ${{ env.ENVIRONMENT }}
+      app_name: ${{ env.APP_NAME }}
     steps:
       - uses: actions/checkout@v3
 
@@ -46,6 +48,20 @@ jobs:
         run: |
           echo ::set-env name=RELEASE_NOTES::$(${{github.workspace}}/gradlew -q printReleaseNotes)
         id: release_note
+
+      - name: retrieve environment
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        run: |
+          echo ::set-env name=ENVIRONMENT::$(${{github.workspace}}/gradlew -q printEnvironment)
+        id: environment
+
+      - name: retrieve app name
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        run: |
+          echo ::set-env name=APP_NAME::$(${{github.workspace}}/gradlew -q printAppName)
+        id: app_name
 
       - name: Download artifact
         id: download-artifact
@@ -112,7 +128,7 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: app-release.apk
+          name: app_release
           path: app/build/outputs/apk/release/
 
   set-tag:
@@ -124,7 +140,7 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
-          name: app-release.apk
+          name: app_release
           path: app/build/outputs/apk/release/
 
       - name: set tag
@@ -140,15 +156,19 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RELEASE_NOTES: ${{needs.fetch-apk.outputs.release_notes}}
+      VERSION_NAME: ${{needs.fetch-apk.outputs.version_name}}
+      ENVIRONMENT: ${{needs.fetch-apk.outputs.environment}}
+      APP_NAME: ${{needs.fetch-apk.outputs.app_name}}
+      APK_NAME: ${{needs.fetch-apk.outputs.app_name}}_${{needs.fetch-apk.outputs.version_name}}_${{needs.fetch-apk.outputs.environment}}.apk
     steps:
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
-          name: app-release.apk
+          name: app_release
           path: app/build/outputs/apk/release/
 
       - name: Rename file
-        run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/Den_1.44_preprod.apk
+        run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/${{env.APK_NAME}}.apk
 
       - name: Create file
         uses: "finnp/create-file-action@master"
@@ -188,7 +208,7 @@ jobs:
           # Optional (recommended): the path of message file or message file's folder [support emoji]
           send_msg_path: message.txt
           # Optional (recommended): the path of attach file or attach file's folder
-          send_file_path: app/build/outputs/apk/release/Den_1.44_preprod.apk
+          send_file_path: app/build/outputs/apk/release/${{env.APK_NAME}}.apk
 
 
 #
