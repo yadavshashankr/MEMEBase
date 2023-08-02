@@ -7,9 +7,10 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.6-RC36"
+    version_name = "v1.0.6-RC37"
     release_notes = 'Changes : 1.Apk name'
     environment = 'preprod'
+    app_name = 'MEMEBase'
 }
 
 android {
@@ -80,7 +81,7 @@ task printEnvironment {
 
 task printAppName {
     doLast{
-        println project.name
+        println project.ext.app_name
     }
 }
 
