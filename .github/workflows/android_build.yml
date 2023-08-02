@@ -13,10 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: kolpav/purge-artifacts-action@v1
-        with:
-          token: ${{secrets.TOKEN}}
-          expire-in: 0days
+#      - uses: kolpav/purge-artifacts-action@v1
+#        with:
+#          token: ${{secrets.TOKEN}}
+#          expire-in: 0days
 
       - name: decode keystore
         id: decode_keystore
@@ -49,6 +49,25 @@ jobs:
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
         run: ./gradlew assembleRelease
+
+
+      - name: Delete Old Artifacts
+        uses: actions/github-script@v6
+        id: artifact
+        with:
+          script: |
+            const res = await github.rest.actions.listArtifactsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+            res.data.artifacts
+              .forEach(({ id }) => {
+                github.rest.actions.deleteArtifact({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  artifact_id: id,
+                })
+              })
 
       - name: upload artifact
         uses: actions/upload-artifact@v3
