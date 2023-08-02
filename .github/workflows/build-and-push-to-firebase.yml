@@ -102,7 +102,7 @@ jobs:
           # is treated as a regular expression if input name_is_regexp is true
           # will download only those artifacts with a name that matches this regular expression
           # https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
-          name: app-release.apk
+          name: app_release
           # Optional, name is treated as a regular expression if set true
           name_is_regexp: false
           # Optional, a directory where to extract artifact(s), defaults to the current directory
@@ -140,7 +140,7 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
-          name: app-release.apk
+          name: app_release
           path: app/build/outputs/apk/release/
 
       - name: set tag
@@ -164,7 +164,7 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v3
         with:
-          name: app-release.apk
+          name: app_release
           path: app/build/outputs/apk/release/
 
       - name: Rename file
