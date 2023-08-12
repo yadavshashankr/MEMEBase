@@ -4,22 +4,26 @@ env:
 on:
   pull_request_target:
     branches:
-      - develop
+      - enter_branch_name
     types:
       - closed
 jobs:
-  if_merged:
+  fetch-apk:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    outputs:
+      version_name: ${{ env.VERSION_NAME }}
+      release_notes: ${{ env.RELEASE_NOTES }}
+      environment: ${{ env.ENVIRONMENT }}
+      app_name: ${{ env.APP_NAME }}
     steps:
       - uses: actions/checkout@v3
-      - name: decode keystore
-        id: decode_keystore
-        uses: timheuer/base64-to-file@v1.2
+
+      - name: Read file contents
+        id: read_file
+        uses: andstor/file-reader-action@v1
         with:
-          fileName: 'keystore.jks'
-          fileDir: '/home/runner/work/MEMEBase/MEMEBase/app/keystore/'
-          encodedString: ${{ secrets.SIGNING_KEY_STORE_BASE64 }}
+          path: "app/info.json"
 
       - name: set up JDK
         uses: actions/setup-java@v3
@@ -28,26 +32,14 @@ jobs:
           distribution: 'zulu'
 
       - name: cache gradle & wrapper
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-
-      - name: apk build release
-        env:
-          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
-          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
-          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-        run: ./gradlew assembleRelease
-
-      - name: aab build release
-        env:
-          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
-          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
-          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-        run: ./gradlew bundleRelease
+          restore-keys: |
+            ${{ runner.OS }}-gradle-
 
       - name: retrieve version
         env:
@@ -63,29 +55,198 @@ jobs:
           echo ::set-env name=RELEASE_NOTES::$(${{github.workspace}}/gradlew -q printReleaseNotes)
         id: release_note
 
+      - name: retrieve environment
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        run: |
+          echo ::set-env name=ENVIRONMENT::$(${{github.workspace}}/gradlew -q printEnvironment)
+        id: environment
+
+      - name: retrieve app name
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        run: |
+          echo ::set-env name=APP_NAME::$(${{github.workspace}}/gradlew -q printAppName)
+        id: app_name
+
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          # Optional, GitHub token, a Personal Access Token with `public_repo` scope if needed
+          # Required, if the artifact is from a different repo
+          # Required, if the repo is private a Personal Access Token with `repo` scope is needed or GitHub token in a job where the permissions `action` scope set to `read`
+          github_token: ${{secrets.TOKEN}}
+          # Optional, workflow file name or ID
+          # If not specified, will be inferred from run_id (if run_id is specified), or will be the current workflow
+          workflow: android_build.yml
+          # Optional, the status or conclusion of a completed workflow to search for
+          # Can be one of a workflow conclusion:
+          #   "failure", "success", "neutral", "cancelled", "skipped", "timed_out", "action_required"
+          # Or a workflow status:
+          #   "completed", "in_progress", "queued"
+          # Use the empty string ("") to ignore status or conclusion in the search
+          workflow_conclusion: success
+          # Optional, will get head commit SHA
+          pr: ${{github.event.pull_request.number}}
+          # Optional, no need to specify if PR is
+          commit: ""
+          # Optional, will use the specified branch. Defaults to all branches
+          branch: ""
+          # Optional, defaults to all types
+          event: ""
+          # Optional, will use specified workflow run
+          # use ${{ github.event.workflow_run.id }} when your action runs in a workflow_run event
+          # and wants to download from the triggering workflow run
+          run_id: ""
+          # Optional, run number from the workflow
+          run_number: ""
+          # Optional, uploaded artifact name,
+          # will download all artifacts if not specified
+          # and extract them into respective subdirectories
+          # https://github.com/actions/download-artifact#download-all-artifacts
+          # is treated as a regular expression if input name_is_regexp is true
+          # will download only those artifacts with a name that matches this regular expression
+          # https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
+          name: app_release
+          # Optional, name is treated as a regular expression if set true
+          name_is_regexp: false
+          # Optional, a directory where to extract artifact(s), defaults to the current directory
+          path: app/build/outputs/apk/release/
+          # Optional, defaults to current repo
+          repo: ${{ github.repository }}
+          # Optional, check the workflow run to whether it has an artifact
+          # then will get the last available artifact from the previous workflow
+          # default false, just try to download from the last one
+          check_artifacts: false
+          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+          # default false
+          search_artifacts: false
+          # Optional, choose to skip unpacking the downloaded artifact(s)
+          # default false
+          skip_unpack: false
+          # Optional, choose how to exit the action if no artifact is found
+          # can be one of:
+          #  "fail", "warn", "ignore"
+          # default fail
+          if_no_artifact_found: fail
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app_release
+          path: app/build/outputs/apk/release/
+
+  set-tag:
+    needs: [ fetch-apk ]
+    runs-on: ubuntu-latest
+    env:
+      VERSION_NAME: ${{needs.fetch-apk.outputs.version_name}}
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app_release
+          path: app/build/outputs/apk/release/
+
       - name: set tag
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "app/build/outputs/apk/release/*.apk"
-          tag: ${{env.VERSION_NAME}}
+          artifacts: app/build/outputs/apk/release/app-release.apk
+          tag:  ${{env.VERSION_NAME}}
           token: ${{secrets.TOKEN}}
+          prerelease: true
 
-      - name: list files
-        run: ls -lrt app/build/outputs/apk/release
-
-      - name: upload artifact to Firebase App Distribution
-        uses: nickwph/firebase-app-distribution-action@v1
+  distribute-apk:
+    needs: [ fetch-apk ]
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_NOTES: ${{needs.fetch-apk.outputs.release_notes}}
+      VERSION_NAME: ${{needs.fetch-apk.outputs.version_name}}
+      ENVIRONMENT: ${{needs.fetch-apk.outputs.environment}}
+      APP_NAME: ${{needs.fetch-apk.outputs.app_name}}
+      APK_NAME: ${{needs.fetch-apk.outputs.app_name}}_${{needs.fetch-apk.outputs.version_name}}_${{needs.fetch-apk.outputs.environment}}.apk
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v3
         with:
-          file: app/build/outputs/apk/release/app-release.apk
-          app: ${{ secrets.FIREBASE_APP_ID }}
-          credentials: ${{ secrets.FIREBASE_CREDENTIALS }}
-          credentials-file: ${{ secrets.FIREBASE_CREDENTIALS_FILE }}  # Optional: This is ignored if credentials is defined.
-          release-notes: ${{env.RELEASE_NOTES}}                  # Optional
-          release-notes-file: ""               # Optional
-          testers: ""                          # Optional
-          testers-file: ""                     # Optional
-          groups: "testers"                           # Optional
-          groups-file: ""                      # Optional
-          debug: false                         # Optional: Default false. A flag you can include to print verbose log output.
-          cache: true                          # Optional: Default true. Whether to cache the firebase tools for next job, keeping this "true" will speed up the build.
-          upgrade: true                        # Optional: Default true. Whether to attempt to upgrade firebase tools when cache is "true", turning this "false" will speed up the build.
+          name: app_release
+          path: app/build/outputs/apk/release/
+
+      - name: Rename file
+        run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/${{env.APK_NAME}}.apk
+
+      - name: Create file
+        uses: "finnp/create-file-action@master"
+        env:
+          FILE_NAME: "message.txt"
+          FILE_DATA: ${{env.RELEASE_NOTES}}
+
+#      - name: Rename file
+#        run: mv /home/runner/work/MEMEBase/MEMEBase/app/message.txt /home/runner/work/MEMEBase/MEMEBase/app/Changes:${{env.RELEASE_NOTES}}.changes
+
+#      - name: upload artifact to Firebase App Distribution
+#        uses: nickwph/firebase-app-distribution-action@v1
+#        with:
+#          file: app/build/outputs/apk/release/app-release.apk
+#          app: ${{ secrets.FIREBASE_APP_ID }}
+#          credentials: ${{ secrets.FIREBASE_CREDENTIALS_FILE }}
+#          credentials-file: ""
+#          release-notes: ${{env.RELEASE_NOTES}}                  # Optional
+#          release-notes-file: ""               # Optional
+#          testers: ""                          # Optional
+#          testers-file: ""                     # Optional
+#          groups: "testers"                           # Optional
+#          groups-file: ""                      # Optional
+#          debug: false                         # Optional: Default false. A flag you can include to print verbose log output.
+#          cache: true                          # Optional: Default true. Whether to cache the firebase tools for next job, keeping this "true" will speed up the build.
+#          upgrade: true                        # Optional: Default true. Whether to attempt to upgrade firebase tools when cache is "true", turning this "false" will speed up the build.
+
+      - name: Send skype
+        uses: Eloco/docker-action-send-skype@v2
+        with:
+          # Required skype username:
+          skype_username: ${{ secrets.SKYPE_USERNAME }}
+          # Required skype password:
+          skype_password: ${{ secrets.SKYPE_PASSWORD }}
+          # Required skype_ids(both user_id  group_id) which u want to send to [also support multiple id which connect by space]
+          skype_ids: 19:134370d03cec49cc89db26f75706c639@thread.skype
+          # Optional (recommended): the path of message file or message file's folder [support emoji]
+          send_msg_path: message.txt
+          # Optional (recommended): the path of attach file or attach file's folder
+          send_file_path: app/build/outputs/apk/release/${{env.APK_NAME}}.apk
+
+
+      - name: Delete Old Artifacts
+        uses: actions/github-script@v6
+        id: artifact
+        with:
+          script: |
+            const res = await github.rest.actions.listArtifactsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+            res.data.artifacts
+              .forEach(({ id }) => {
+                github.rest.actions.deleteArtifact({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  artifact_id: id,
+                })
+              })
+
+
+#
+#      - name: Send skype
+#        uses: Eloco/docker-action-send-skype@v2
+#        with:
+#          # Required skype username:
+#          skype_username: ${{ secrets.SKYPE_USERNAME }}
+#          # Required skype password:
+#          skype_password: ${{ secrets.SKYPE_PASSWORD }}
+#          # Required skype_ids(both user_id  group_id) which u want to send to [also support multiple id which connect by space]
+#          skype_ids: 19:134370d03cec49cc89db26f75706c639@thread.skype
+#          # Optional (recommended): the path of message file or message file's folder [support emoji]
+#          send_msg_path: message.txt
+#          # Optional (recommended): the path of attach file or attach file's folder
+#          send_file_path: app/${{env.RELEASE_NOTES}}.changes

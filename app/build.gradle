@@ -7,8 +7,10 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.5"
-    release_notes = "Turned managed publishing on."
+    version_name = "v1.0.6-RC41"
+    release_notes = 'Changes : 1.Apk name'
+    environment = 'preprod'
+    app_name = 'MEMEBase'
 }
 
 android {
@@ -71,12 +73,24 @@ task printReleaseNotes {
     }
 }
 
+task printEnvironment {
+    doLast{
+        println project.ext.environment
+    }
+}
+
+task printAppName {
+    doLast{
+        println project.ext.app_name
+    }
+}
+
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"
 
 
-    implementation 'androidx.recyclerview:recyclerview:1.3.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.1'
 
     implementation 'com.github.bumptech.glide:glide:4.13.2'
 
@@ -125,7 +139,7 @@ dependencies {
     //Interceptors
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
 
-    implementation("androidx.fragment:fragment-ktx:1.6.0")
+    implementation("androidx.fragment:fragment-ktx:1.6.1")
 
     //Secure Storage
     implementation "androidx.security:security-crypto:1.0.0"
