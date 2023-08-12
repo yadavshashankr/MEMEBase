@@ -7,7 +7,7 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.6-RC37"
+    version_name = "v1.0.6-RC41"
     release_notes = 'Changes : 1.Apk name'
     environment = 'preprod'
     app_name = 'MEMEBase'

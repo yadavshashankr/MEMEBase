@@ -2,7 +2,7 @@ name: Android CI
 on:
   pull_request_target:
     branches:
-      - master
+      - enter_branch_name
     types:
       - closed
 jobs:
