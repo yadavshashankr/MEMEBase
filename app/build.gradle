@@ -7,8 +7,8 @@ plugins {
 }
 
 ext{
-    version_name = "v1.0.6"
-    release_notes = 'Migrating Video compressor module'
+    version_name = "v1.0.7-RC01"
+    release_notes = 'Changes : Support for Android 10 devices.'
     environment = 'preprod'
     app_name = 'MEMEBase'
 }

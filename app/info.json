@@ -1,5 +1,5 @@
 {
   "branch_name" : "develop",
-  "version_name" : "v1.0.6",
-  "release_notes" : "Migrating Video Compressor module"
+  "version_name" : "v1.0.7-RC01",
+  "release_notes" : "Support for Android 10 devices."
 }
