@@ -1,4 +1,4 @@
-package com.shashank.memebase.agenda.dialogs.domain
+package com.shashank.memebase.meme.domain
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -30,7 +30,8 @@ class PopUpTaskyListDialogImpl @Inject constructor(private var applicationContex
             Constants.AgendaDialog.AGENDA_TYPE -> this.popUpDialogArrayList = getAgendaTypeList()
             Constants.AgendaDialog.AGENDA_STATE -> this.popUpDialogArrayList = getAgendaStateList()
             Constants.AgendaDialog.AGENDA_PRE_TIMERS -> this.popUpDialogArrayList = getAgendaPreTimesList()
-            Constants.AgendaDialog.AGENDA_MEMES_MODULES -> this.popUpDialogArrayList = getMemeModules()
+            Constants.AgendaDialog.AGENDA_COMPRESSOR_MODULES -> this.popUpDialogArrayList = getCompressorModules()
+            Constants.AgendaDialog.AGENDA_MEMES_MODULES -> this.popUpDialogArrayList = getMemeModule()
         }
         return processPopUpWindow()
     }
@@ -58,9 +59,15 @@ class PopUpTaskyListDialogImpl @Inject constructor(private var applicationContex
         return popupWindow
     }
 
-    private fun getMemeModules() : ArrayList<String> {
+    private fun getCompressorModules() : ArrayList<String> {
         val agendaArrayList : ArrayList<String> = ArrayList()
         agendaArrayList.add(applicationContext.getString(R.string.video_compressor))
+        agendaArrayList.add(applicationContext.getString(R.string.about))
+        return agendaArrayList
+    }
+    private fun getMemeModule() : ArrayList<String> {
+        val agendaArrayList : ArrayList<String> = ArrayList()
+        agendaArrayList.add(applicationContext.getString(R.string.app_name))
         agendaArrayList.add(applicationContext.getString(R.string.about))
         return agendaArrayList
     }

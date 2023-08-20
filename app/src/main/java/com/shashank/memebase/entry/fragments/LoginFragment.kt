@@ -9,6 +9,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -16,10 +17,10 @@ import androidx.fragment.app.viewModels
 import androidx.transition.Slide
 import com.shashank.memebase.*
 import com.shashank.memebase.databinding.LayoutLoginBinding
-import com.shashank.memebase.entry.MainActivity
+import com.shashank.memebase.MainActivity
 import com.shashank.memebase.entry.viewModels.LoginViewModel
 import com.shashank.memebase.entry.models.AuthenticationRequest
-import com.shashank.memebase.meme.fragments.AgendaFragment
+import com.shashank.memebase.meme.fragments.MemeFragment
 import com.shashank.memebase.usecases.domain.FragmentInflater
 import com.shashank.memebase.usecases.FragmentInflaterImpl
 import com.shashank.memebase.usecases.NetworkStatus
@@ -51,6 +52,7 @@ class LoginFragment : Fragment(), FragmentInflater by FragmentInflaterImpl(), Te
 
         viewBinding.btnLogin.setOnClickListener(this)
         viewBinding.tvRegister.setOnClickListener(this)
+        viewBinding.tvSkip.setOnClickListener(this)
     }
 
     private fun setToolbarAndFab() {
@@ -142,12 +144,16 @@ class LoginFragment : Fragment(), FragmentInflater by FragmentInflaterImpl(), Te
 
         viewModel.loginObserver.observe(viewLifecycleOwner){
             if(it){
-                val parentActivity = (activity as MainActivity)
-                parentActivity.startFragment(AgendaFragment.getInstance())
+                openMemeFragment()
             }else{
                 Toast.makeText(activity, "Invalid credentials", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun openMemeFragment(){
+        val parentActivity = (activity as MainActivity)
+        parentActivity.startFragment(MemeFragment.getInstance())
     }
 
     private fun openRegistrationFragment() {
@@ -155,6 +161,10 @@ class LoginFragment : Fragment(), FragmentInflater by FragmentInflaterImpl(), Te
         val parentActivity = requireActivity() as MainActivity
         parentActivity.startFragment(RegistrationFragment.getInstance())
         removeFragment(this)
+    }
+
+    fun activateSkip(){
+        viewBinding.tvSkip.isVisible = true
     }
 
     override fun onResume() {
@@ -172,6 +182,8 @@ class LoginFragment : Fragment(), FragmentInflater by FragmentInflaterImpl(), Te
             viewBinding.tvRegister -> openRegistrationFragment()
 
             viewBinding.btnLogin ->  startLogin()
+
+            viewBinding.tvSkip ->  openMemeFragment()
         }
     }
 

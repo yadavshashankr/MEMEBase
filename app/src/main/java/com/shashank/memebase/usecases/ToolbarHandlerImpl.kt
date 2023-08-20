@@ -2,8 +2,11 @@ package com.shashank.memebase.usecases
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.text.TextUtils
 import android.view.animation.TranslateAnimation
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.children
 import com.google.android.material.appbar.AppBarLayout
 import com.shashank.memebase.globals.Constants
 import com.shashank.memebase.usecases.domain.ToolbarHandler
@@ -14,7 +17,22 @@ class ToolbarHandlerImpl : ToolbarHandler {
 
     override fun setToolBarText(toolbar: Toolbar, text: String) {
         toolbar.title = text
+        setToolbarTextViewsMarquee(toolbar)
         animateDown(toolbar)
+    }
+
+    private fun setToolbarTextViewsMarquee(toolbar: Toolbar) {
+        for (child in toolbar.children) {
+            if (child is TextView) {
+                setMarquee(child)
+            }
+        }
+    }
+
+    private fun setMarquee(textView: TextView) {
+        textView.ellipsize = TextUtils.TruncateAt.MARQUEE
+        textView.isSelected = true
+        textView.marqueeRepeatLimit = -1
     }
 
     override fun setToolBarHeight(toolbar: Toolbar, appBar: AppBarLayout, context: Context, isBig: Boolean) {

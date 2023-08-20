@@ -1,4 +1,4 @@
-package com.shashank.memebase.agenda.dialogs.domain
+package com.shashank.memebase.meme.domain
 
 import android.widget.PopupWindow
 import androidx.lifecycle.MutableLiveData

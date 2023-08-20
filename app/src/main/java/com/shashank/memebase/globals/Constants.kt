@@ -1,5 +1,6 @@
 package com.shashank.memebase.globals
 
+import android.net.Uri
 
 
 class Constants {
@@ -15,7 +16,6 @@ class Constants {
     }
 
     object ApiProperties {
-//        const val URL ="https://tasky.pl-coding.com/"
         const val APP_URL: String = "https://api.imgflip.com/"
         const val TABLE_NAME_MEME_MODEL: String = "mememodel"
         const val DEFAULT_REQUEST_TIMEOUT : Long =  400
@@ -26,6 +26,11 @@ class Constants {
         AGENDA_TYPE,
         AGENDA_STATE,
         AGENDA_PRE_TIMERS,
+        AGENDA_COMPRESSOR_MODULES,
         AGENDA_MEMES_MODULES
+    }
+
+    object VideoProperties{
+        var uri : Uri? = null
     }
 }
