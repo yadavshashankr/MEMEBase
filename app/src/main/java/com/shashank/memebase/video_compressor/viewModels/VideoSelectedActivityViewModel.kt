@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
 import androidx.core.net.toUri
 import androidx.lifecycle.AndroidViewModel
@@ -47,7 +48,11 @@ class VideoSelectedActivityViewModel @Inject constructor(application : Applicati
         mutableError.value = ""
         mutableCompressing.value = true
 
-        val outputPath = File(URI("file:///storage/emulated/0/"+Environment.DIRECTORY_MOVIES + "/MEMEBase/").path)
+        val outputPath : File = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q){
+            File(URI(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).absolutePath + "/" + "MEMEBase/").path)
+        }else{
+            File(URI("file:///storage/emulated/0/"+Environment.DIRECTORY_MOVIES + "/MEMEBase/").path)
+        }
         if(!outputPath.exists()){
             outputPath.mkdirs()
         }

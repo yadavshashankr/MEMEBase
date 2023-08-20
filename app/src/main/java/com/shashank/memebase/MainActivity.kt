@@ -108,7 +108,6 @@ class MainActivity : AppCompatActivity(), FragmentInflater by FragmentInflaterIm
     @EnsurePermissions(permissions = [Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE])
     private fun startVideoCompressor(){
         startFragment(SelectVideoFragment.getInstance())
-//        startActivity(Intent(this, SelectVideoActivity::class.java))
     }
 
     fun setFabLocation(shiftRight : Boolean){

@@ -1,5 +1,6 @@
 package com.shashank.memebase.video_compressor.ui
 
+import android.Manifest
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -13,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.transition.Slide
+import com.likethesalad.android.aaper.api.EnsurePermissions
 import com.shashank.memebase.R
 import com.shashank.memebase.databinding.FragmentVideoSelectedBinding
 import com.shashank.memebase.MainActivity
@@ -37,7 +39,7 @@ class VideoSelectedFragment : Fragment(), FragmentInflater by FragmentInflaterIm
         binding.viewModel = viewModel
         return binding.root
     }
-
+    @EnsurePermissions(permissions = [Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE])
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setFragmentManager(activity?.supportFragmentManager as FragmentManager)
