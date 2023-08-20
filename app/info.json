@@ -1,5 +1,5 @@
 {
   "branch_name" : "develop",
-  "version_name" : "v1.0.6-RC41",
-  "release_notes" : "Testing file"
+  "version_name" : "v1.0.6",
+  "release_notes" : "Migrating Video Compressor module"
 }

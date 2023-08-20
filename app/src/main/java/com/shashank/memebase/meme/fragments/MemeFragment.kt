@@ -16,16 +16,16 @@ import androidx.transition.Slide
 import com.shashank.memebase.R
 import com.shashank.memebase.meme.adapters.MemeRecyclerAdapter
 import com.shashank.memebase.databinding.ActivityMemeBinding
-import com.shashank.memebase.entry.MainActivity
+import com.shashank.memebase.MainActivity
 import com.shashank.memebase.meme.memesModels.Memes
-import com.shashank.memebase.meme.viewModels.MemeActivityViewModel
+import com.shashank.memebase.video_compressor.viewModels.MemeActivityViewModel
 import com.shashank.memebase.usecases.FragmentInflaterImpl
 import com.shashank.memebase.usecases.domain.FragmentInflater
 import com.shashank.memebase.utils.Tools
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AgendaFragment : Fragment(), FragmentInflater by FragmentInflaterImpl() {
+class MemeFragment : Fragment(), FragmentInflater by FragmentInflaterImpl() {
     private var memeRecyclerAdapter: MemeRecyclerAdapter? = null
     private val viewModel: MemeActivityViewModel by viewModels()
     private lateinit var bindingA: ActivityMemeBinding
@@ -66,7 +66,7 @@ class AgendaFragment : Fragment(), FragmentInflater by FragmentInflaterImpl() {
         val parentActivity = requireActivity() as MainActivity
         parentActivity.setTitle((activity as MainActivity).getString(R.string.app_name))
 
-        parentActivity.showFAB(R.drawable.fab_plus, "agendaDialog")
+        parentActivity.showFAB(R.drawable.fab_plus, "compressorDialog")
         parentActivity.setFabLocation(true)
         parentActivity.setToolbarHeight(false)
     }
@@ -81,11 +81,11 @@ class AgendaFragment : Fragment(), FragmentInflater by FragmentInflaterImpl() {
 
     companion object {
 
-        private lateinit var agendaFragment: AgendaFragment
+        private lateinit var agendaFragment: MemeFragment
 
         @JvmStatic
-        fun getInstance(): AgendaFragment {
-            agendaFragment = AgendaFragment()
+        fun getInstance(): MemeFragment {
+            agendaFragment = MemeFragment()
             agendaFragment.apply {
                 enterTransition = Slide(Gravity.BOTTOM)
             }

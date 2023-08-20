@@ -10,7 +10,7 @@ import com.shashank.memebase.databinding.RecyclerListRowBinding
 import com.shashank.memebase.meme.memesModels.Memes
 import com.shashank.memebase.utils.Tools.Companion.setViewGone
 import com.shashank.memebase.utils.Tools.Companion.setViewVisible
-import com.shashank.memebase.meme.viewModels.MemeActivityViewModel
+import com.shashank.memebase.video_compressor.viewModels.MemeActivityViewModel
 
 
 class MemeRecyclerAdapter: RecyclerView.Adapter<MemeRecyclerAdapter.MyViewHolder>() {
@@ -28,7 +28,7 @@ class MemeRecyclerAdapter: RecyclerView.Adapter<MemeRecyclerAdapter.MyViewHolder
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         memeListData[position]
-        holder.applicationBinding.memes = memeListData.get(position)
+        holder.applicationBinding.memes = memeListData[position]
         holder.applicationBinding.executePendingBindings()
         (holder).bind(memeListData[position])
     }

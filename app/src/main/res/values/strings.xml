@@ -9,7 +9,7 @@
     <string name="selectVideo">SELECT VIDEO</string>
     <string name="play">PLAY</string>
     <string name="pause">PAUSE</string>
-    <string name="instruct">Select Any Video of Size above 10 MB \n and below 50 MB</string>
+    <string name="instruct">Select any video of size above 10 MB \n and below 50 MB</string>
     <string name="logout">Are you sure you want \n to Logout?</string>
     <string name="sizeSpec">Please select video of specified size</string>
     <string name="compress_video">Compress Video</string>
@@ -39,4 +39,5 @@
     <string name="video_compressor">Video Compressor</string>
     <string name="about">About</string>
     <string name="about_msg">MEMEBase %s</string>
+    <string name="skip">Skip</string>
 </resources>
