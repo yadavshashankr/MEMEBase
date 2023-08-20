@@ -36,8 +36,8 @@ open class SaveDataImpl @Inject constructor(val context: Context) : SaveData {
             val image = File(imagePath, "memes")
             FileOutputStream(image)
         }
-        imageOutStream.use { imageOutStream ->
-            bitmapObject.compress(Bitmap.CompressFormat.JPEG, 100, imageOutStream!!)
+        imageOutStream.use {
+            bitmapObject.compress(Bitmap.CompressFormat.JPEG, 100, it as OutputStream)
         }
     }
 
@@ -46,6 +46,7 @@ open class SaveDataImpl @Inject constructor(val context: Context) : SaveData {
         var result: String? = null
         if (uri.scheme == "content") {
             val cursor: Cursor = context.contentResolver.query(uri, null, null, null, null) as Cursor
+            @Suppress("ConvertTryFinallyToUseCall")
             try {
                 if (cursor.moveToFirst()) {
                     result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))

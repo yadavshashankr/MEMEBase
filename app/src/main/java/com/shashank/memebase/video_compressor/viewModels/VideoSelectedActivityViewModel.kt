@@ -1,4 +1,4 @@
-package com.shashank.memebase.meme.viewModels
+package com.shashank.memebase.video_compressor.viewModels
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -54,9 +54,7 @@ class VideoSelectedActivityViewModel @Inject constructor(application : Applicati
         val fileName = "compressed_${saveData.getFileName(file?.toUri() as Uri)}"
         val outputFile = File.createTempFile(fileName, ".mp4", outputPath)
         viewModelScope.launch {
-            val rc =
-                withContext(Dispatchers.IO) { FFmpeg.execute("-y -noautorotate -i ${file?.path} -s 1280x720 -metadata:s:v:0 rotate=90 -b:v 150k -vcodec mpeg4 -acodec copy $outputFile") }
-            when (rc) {
+            when (withContext(Dispatchers.IO) { FFmpeg.execute("-y -noautorotate -i ${file?.path} -s 1280x720 -metadata:s:v:0 rotate=90 -b:v 150k -vcodec mpeg4 -acodec copy $outputFile") }) {
                 Config.RETURN_CODE_SUCCESS -> {
                     file?.delete()
                     mutableCompressing.value = false

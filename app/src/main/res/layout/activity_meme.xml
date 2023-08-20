@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".agenda.fragments.AgendaFragment">
+    tools:context=".agenda.fragments.MemeFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="com.shashank.memebase.meme.viewModels.MemeActivityViewModel"/>
+            type="com.shashank.memebase.video_compressor.viewModels.MemeActivityViewModel"/>
     </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout

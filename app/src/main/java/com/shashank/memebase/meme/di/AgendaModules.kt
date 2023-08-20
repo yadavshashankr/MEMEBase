@@ -1,9 +1,10 @@
-package com.shashank.memebase.agenda.di
+package com.shashank.memebase.meme.di
 
 import android.content.Context
-import com.shashank.memebase.agenda.dialogs.domain.PopUpTaskyListDialog
-import com.shashank.memebase.agenda.dialogs.domain.PopUpTaskyListDialogImpl
+
 import com.shashank.memebase.db.Dao
+import com.shashank.memebase.meme.domain.PopUpTaskyListDialog
+import com.shashank.memebase.meme.domain.PopUpTaskyListDialogImpl
 import com.shashank.memebase.meme.network.RetroService
 import com.shashank.memebase.meme.repositories.NetworkRepository
 import com.shashank.memebase.meme.repositories.NetworkRepositoryImpl

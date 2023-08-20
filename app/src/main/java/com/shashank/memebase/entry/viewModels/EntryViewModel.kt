@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shashank.memebase.agenda.dialogs.domain.PopUpTaskyListDialog
 import com.shashank.memebase.globals.Constants
+import com.shashank.memebase.meme.domain.PopUpTaskyListDialog
 import com.shashank.memebase.meme.memesModels.MemeModel
 import com.shashank.memebase.meme.repositories.NetworkRepository
 import com.shashank.memebase.usecases.NetworkStatus

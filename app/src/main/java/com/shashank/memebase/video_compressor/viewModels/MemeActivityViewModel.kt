@@ -1,4 +1,4 @@
-package com.shashank.memebase.meme.viewModels
+package com.shashank.memebase.video_compressor.viewModels
 
 import android.app.Application
 import android.content.Context

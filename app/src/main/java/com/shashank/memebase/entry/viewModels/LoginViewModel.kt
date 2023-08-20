@@ -7,7 +7,6 @@ import com.shashank.memebase.entry.domain.EmailPatternValidator
 import com.shashank.memebase.entry.domain.usecases.PasswordPatternValidation
 import com.shashank.memebase.entry.models.AuthenticationRequest
 import com.shashank.memebase.entry.data.UserPreferences
-import com.shashank.memebase.entry.utils.SecuredPreference
 import com.shashank.memebase.usecases.NetworkStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -17,8 +16,7 @@ class LoginViewModel @Inject constructor(
     private val emailValidator: EmailPatternValidator,
     private val passwordPatternValidation: PasswordPatternValidation,
     networkStatus: LiveData<NetworkStatus>,
-    private val userPreferences: UserPreferences,
-    private val securedPreference: SecuredPreference
+    private val userPreferences: UserPreferences
 ): ViewModel() {
 
     private val mutableEmail = MutableLiveData(false)
@@ -35,9 +33,6 @@ class LoginViewModel @Inject constructor(
     private val mutableLogin = MutableLiveData<Boolean>()
     val loginObserver : LiveData<Boolean> = mutableLogin
 
-//    private val coroutineExceptionHandler = CoroutineExceptionHandler{ _, throwable ->
-//        throwable.printStackTrace()
-//    }
 
 
     fun onEmailChange(email : String) {
@@ -55,15 +50,5 @@ class LoginViewModel @Inject constructor(
     fun login(authenticationModel: AuthenticationRequest){
 
         mutableLogin.postValue(userPreferences.verifyUserCredentials(authenticationModel.email, authenticationModel.password))
-
-//        viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
-//            val authenticatedUser = entryRepository.doLogin(authenticationModel)
-//            if(authenticatedUser != null){
-//                userPreferences.saveAuthenticatedUser(authenticatedUser)
-//                securedPreference.setAccessToken(authenticatedUser.token)
-//                authenticatedUser.token = null
-//                mutableLogin.postValue(true)
-//            }
-//        }
     }
 }

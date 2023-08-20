@@ -14,7 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.transition.Slide
 import com.shashank.memebase.*
 import com.shashank.memebase.databinding.LayoutRegistrationBinding
-import com.shashank.memebase.entry.MainActivity
+import com.shashank.memebase.MainActivity
 import com.shashank.memebase.entry.viewModels.RegisterViewModel
 import com.shashank.memebase.entry.models.RegisterRequest
 import com.shashank.memebase.usecases.*
