@@ -63,4 +63,5 @@ jobs:
           track: production
           status: completed
           inAppUpdatePriority: 2
+          changesNotSentForReview: true
           whatsNewDirectory: app/distribution/whatsNewDirectory
