@@ -14,7 +14,6 @@ import android.view.animation.TranslateAnimation
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -30,14 +29,11 @@ import com.shashank.memebase.entry.fragments.LoginFragment
 import com.shashank.memebase.entry.viewModels.EntryViewModel
 import com.shashank.memebase.globals.Constants
 import com.shashank.memebase.meme.fragments.MemeFragment
-import com.shashank.memebase.video_compressor.ui.SelectVideoFragment
-import com.shashank.memebase.video_compressor.ui.VideoSelectedFragment
 import com.shashank.memebase.usecases.FragmentInflaterImpl
 import com.shashank.memebase.usecases.NetworkStatus
 import com.shashank.memebase.usecases.ToolbarHandlerImpl
 import com.shashank.memebase.usecases.domain.FragmentInflater
 import com.shashank.memebase.usecases.domain.ToolbarHandler
-import com.shashank.memebase.utils.Tools
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -98,7 +94,7 @@ class MainActivity : AppCompatActivity(), FragmentInflater by FragmentInflaterIm
 
         viewModel.agendaDialogObserver().observe(this) {
             when (it) {
-                getString(R.string.video_compressor) -> startVideoCompressor()
+//                getString(R.string.video_compressor) -> startVideoCompressor()
                 getString(R.string.app_name) -> startFragment(MemeFragment.getInstance())
                 getString(R.string.about) -> Toast.makeText(this, String.format(getString(R.string.about_msg), BuildConfig.VERSION_NAME), Toast.LENGTH_SHORT).show()
             }
@@ -106,9 +102,9 @@ class MainActivity : AppCompatActivity(), FragmentInflater by FragmentInflaterIm
     }
 
     @EnsurePermissions(permissions = [Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE])
-    private fun startVideoCompressor(){
-        startFragment(SelectVideoFragment.getInstance())
-    }
+//    private fun startVideoCompressor(){
+//        startFragment(SelectVideoFragment.getInstance())
+//    }
 
     fun setFabLocation(shiftRight : Boolean){
         if(shiftRight){
@@ -185,19 +181,19 @@ class MainActivity : AppCompatActivity(), FragmentInflater by FragmentInflaterIm
         popUpActionWindow.update(calculatedWidth, calculatedHeight, halfScreenWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
-    val videoFetcher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        if (it == null) return@registerForActivityResult
-        val fileDescriptor = applicationContext.contentResolver.openAssetFileDescriptor(it, "r")
-        val fileSize = fileDescriptor!!.length /1000
-
-        if (fileSize in 10001..49999){
-            Constants.VideoProperties.uri = it
-            startFragment(VideoSelectedFragment.getInstance())
-        }else{
-            Tools.longToast(this, resources.getString(R.string.sizeSpec))
-        }
-
-    }
+//    val videoFetcher = registerForActivityResult(ActivityResultContracts.GetContent()) {
+//        if (it == null) return@registerForActivityResult
+//        val fileDescriptor = applicationContext.contentResolver.openAssetFileDescriptor(it, "r")
+//        val fileSize = fileDescriptor!!.length /1000
+//
+//        if (fileSize in 10001..49999){
+//            Constants.VideoProperties.uri = it
+//            startFragment(VideoSelectedFragment.getInstance())
+//        }else{
+//            Tools.longToast(this, resources.getString(R.string.sizeSpec))
+//        }
+//
+//    }
 
     override fun onClick(view: View?) {
         if(view == viewBinding.fab && viewBinding.fab.tag == "fab"){

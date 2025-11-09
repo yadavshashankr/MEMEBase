@@ -61,7 +61,7 @@ class PopUpTaskyListDialogImpl @Inject constructor(private var applicationContex
 
     private fun getCompressorModules() : ArrayList<String> {
         val agendaArrayList : ArrayList<String> = ArrayList()
-        agendaArrayList.add(applicationContext.getString(R.string.video_compressor))
+//        agendaArrayList.add(applicationContext.getString(R.string.video_compressor))
         agendaArrayList.add(applicationContext.getString(R.string.about))
         return agendaArrayList
     }

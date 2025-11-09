@@ -132,7 +132,7 @@ jobs:
           if_no_artifact_found: fail
 
       - name: upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app_release
           path: app/build/outputs/apk/release/
