@@ -20,7 +20,7 @@ android {
         applicationId "com.shashank.memebase"
         minSdk 29
         targetSdk 36
-        versionCode 10
+        versionCode 11
         versionName project.ext.version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
