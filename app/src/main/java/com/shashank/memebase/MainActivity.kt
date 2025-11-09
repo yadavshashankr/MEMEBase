@@ -14,7 +14,6 @@ import android.view.animation.TranslateAnimation
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +34,6 @@ import com.shashank.memebase.usecases.NetworkStatus
 import com.shashank.memebase.usecases.ToolbarHandlerImpl
 import com.shashank.memebase.usecases.domain.FragmentInflater
 import com.shashank.memebase.usecases.domain.ToolbarHandler
-import com.shashank.memebase.utils.Tools
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
