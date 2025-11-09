@@ -1,5 +1,5 @@
 {
   "branch_name" : "develop",
-  "version_name" : "v1.0.7",
-  "release_notes" : "Support for Android 10 devices."
+  "version_name" : "v1.2.0",
+  "release_notes" : "Support to Android 16. Performance enhancements & bug fixes"
 }
