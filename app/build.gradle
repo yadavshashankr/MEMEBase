@@ -7,8 +7,8 @@ plugins {
 }
 
 ext{
-    version_name = "v1.2.0"
-    release_notes = 'Support to Android 16. Performance enhancements & bug fixes'
+    version_name = "v1.2.1"
+    release_notes = 'Performance enhancements & bug fixes'
     environment = 'prod'
     app_name = 'MEMEBase'
 }
